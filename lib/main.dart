@@ -1,15 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lib_marvel/marvel_api.dart';
 
 
-void main() {
+void main() async {
 
-  final publicKey = '';
-  final secretKey = '';
-  
-  final marvelApi = MarvelApi(publicKey, secretKey);
+  WidgetsFlutterBinding.ensureInitialized();
+  final x = MarvelApi();
+  // final publicKey = '';
+  // final secretKey = '';
 
-  // runApp(MyApp());
+  // final marvelApi = MarvelApi(publicKey, secretKey);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -69,6 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+  // DefaultAssetBundle.of(context).loadString(environmentFile).then((final String jsonData) {
+  //   final jsonResult = json.decode(jsonData);
+  //   print(jsonResult);
+  // });
+  
+
+
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
