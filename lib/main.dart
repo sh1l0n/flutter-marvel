@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lib_marvel/marvel_api.dart';
+
 
 void main() {
-  runApp(MyApp());
+
+  final publicKey = '';
+  final secretKey = '';
+  
+  final marvelApi = MarvelApi(publicKey, secretKey);
+
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
