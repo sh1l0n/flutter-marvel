@@ -76,8 +76,6 @@ class _SerieGridCardState extends State<SerieGridCard> {
   @override
   Widget build(BuildContext context) {
 
-    
-
     final pressedContainer = Container(
       width: double.infinity,
       height: double.infinity,

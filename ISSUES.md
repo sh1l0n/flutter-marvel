@@ -2,6 +2,9 @@
 
 
 # DOING
+## 4. AppBar
+- AppBar with title
+- Drawer with settings/support icons
 
 
 # DONE
@@ -20,9 +23,6 @@ https://developer.marvel.com/documentation/getting_started
 
 
 # TODO
-## 4. AppBar
-- AppBar with title
-- Drawer with settings/support icons
 
 ## 5. Details screen
 - Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
