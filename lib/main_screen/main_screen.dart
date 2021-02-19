@@ -13,10 +13,11 @@ import 'serie_card.dart';
 
 
 class MainScreenStyle {
-  const MainScreenStyle({@required this.columns, @required this.verticalMargin, @required this.horizontalMargin});
+  const MainScreenStyle({@required this.columns, @required this.verticalMargin, @required this.horizontalMargin, @required this.cardStyle});
   final int columns;
   final double verticalMargin;
   final double horizontalMargin;
+  final SerieGridCardStyle cardStyle;
 }
 
 class MainScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
         final serie = bloc.series[index];
         return SerieGridCard(
           serie: serie,
+          style: widget.style.cardStyle,
           onTap: () {
             print('onTap: $index');
           },

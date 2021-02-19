@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:marvel/main_screen/main_screen_bloc.dart';
 
 import 'main_screen/main_screen.dart';
+import 'main_screen/serie_card.dart';
 
 
 void main() async {
@@ -56,10 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Container(),
       ),
       body: Center(
-          child: MainScreen(
-            bloc: mainScreenBloC,
-            style: MainScreenStyle(columns: isBigScreen ? 3 : 2, verticalMargin: 2.0, horizontalMargin: 1.0),
+        child: MainScreen(
+          bloc: mainScreenBloC,
+          style: MainScreenStyle(
+            columns: isBigScreen ? 3 : 2, 
+            verticalMargin: 2.0, 
+            horizontalMargin: 1.0,
+            cardStyle: SerieGridCardStyle(
+              textBackgroundColor: Color(0xee424242),
+              selectedLayerColor: Color(0x66747474),
+              textStyle: TextStyle(
+                fontSize: 18, 
+                color: Color(0xffffffff)
+              ),
             ),
+          ),
+        ),
       ),
     );
   }

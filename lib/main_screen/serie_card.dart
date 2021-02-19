@@ -10,12 +10,19 @@ import 'package:flutter/widgets.dart';
 
 import 'package:lib_marvel/marvel_api.dart';
 
+
+class SerieGridCardStyle {
+  const SerieGridCardStyle({@required this.textBackgroundColor, @required this.textStyle, @required this.selectedLayerColor});
+  final Color textBackgroundColor;
+  final TextStyle textStyle;
+  final Color selectedLayerColor;
+}
+
 class SerieGridCard extends StatefulWidget {
-  const SerieGridCard({Key key, @required this.serie, @required this.onTap}) : super(key: key);
-
+  const SerieGridCard({Key key, @required this.serie, @required this.style, @required this.onTap}) : super(key: key);
   final MarvelSerieWrapper serie;
+  final SerieGridCardStyle style;
   final Function onTap;
-
   @override
   State<StatefulWidget> createState() => _SerieGridCardState();
 }
@@ -31,11 +38,9 @@ class _SerieGridCardState extends State<SerieGridCard> {
   }  
 
   Widget buildCard() {
-    final double fontSize = 18;
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color(0xff272727),
       child: Stack(
         children: [
           Container(
@@ -50,12 +55,12 @@ class _SerieGridCardState extends State<SerieGridCard> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: fontSize*3,
-              color: Color(0xee424242),
+              height: widget.style.textStyle.fontSize*3,
+              color: widget.style.textBackgroundColor,
               child: Center(
                 child: Text(
                   serie.title, 
-                  style: TextStyle(fontSize: fontSize, color: Color(0xffffffff)),
+                  style: widget.style.textStyle,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
@@ -67,6 +72,14 @@ class _SerieGridCardState extends State<SerieGridCard> {
     );
   }
 
+  Widget buildTappedLayer() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: widget.style.selectedLayerColor,
+    );
+  }
+
   void _handleTap(final bool isTapDown) {
     setState(() {
       _isEnabled = !isTapDown;
@@ -75,12 +88,6 @@ class _SerieGridCardState extends State<SerieGridCard> {
 
   @override
   Widget build(BuildContext context) {
-
-    final pressedContainer = Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: Color(0x66747474),
-    );
 
     final card = buildCard();
   
@@ -95,7 +102,7 @@ class _SerieGridCardState extends State<SerieGridCard> {
       onTapCancel: () {
         _handleTap(false);
       },
-      child: _isEnabled ? card : Stack(children: [card, pressedContainer]),
+      child: _isEnabled ? card : Stack(children: [card, buildTappedLayer()]),
     );
   }
 }
