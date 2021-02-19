@@ -7,10 +7,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:marvel/main_screen/main_screen_bloc.dart';
 
-import 'drawer/drawer.dart';
-import 'drawer/drawer_bloc.dart';
+import 'main_screen/main_screen_bloc.dart';
 import 'main_screen/main_screen.dart';
 import 'main_screen/serie_card.dart';
 
@@ -21,7 +19,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  
+  bool isBigScreen(final BuildContext c) {
+    final width = MediaQuery.of(c).size.width;
+    return width>600;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,61 +32,33 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Marvel Series'),
-    );
-  }
-}
+      initialRoute: MainScreen.route,
+      onGenerateRoute: (final RouteSettings settings) {
+        final route = settings.name;
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  final mainScreenBloC = MainScreenBLoC();
-  final drawerBLoC = MarvelDrawerBLoC();
-
-  bool isBigScreen(final BuildContext c) {
-    final width = MediaQuery.of(context).size.width;
-    return width>600;
-  }
-
-  MainScreenStyle getMainScreenStyle(final BuildContext c) {
-    return MainScreenStyle(
-      columns: isBigScreen(c) ? 3 : 2, 
-      verticalMargin: 2.0, 
-      horizontalMargin: 1.0,
-      cardStyle: SerieGridCardStyle(
-        textBackgroundColor: Color(0xee424242),
-        selectedLayerColor: Color(0x66747474),
-        textStyle: TextStyle(
-          fontSize: 18, 
-          color: Color(0xffffffff)
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar:  PreferredSize(
-          preferredSize: Size.fromHeight(50.0), // here the desired height
-          child: AppBar(
-            title: Text(widget.title),
-        ),
-      ),
-      drawer: MarvelDrawer(bloc: drawerBLoC),
-      body: Center(
-        child: MainScreen(
-          bloc: mainScreenBloC,
-          style: getMainScreenStyle(context),
-        ),
-      ),
+        if (route == MainScreen.route) {
+           return MaterialPageRoute(builder: (context) {
+            return MainScreen(
+              bloc: MainScreenBLoC(),
+              style: MainScreenStyle(
+                columns: isBigScreen(context) ? 3 : 2, 
+                verticalMargin: 2.0, 
+                horizontalMargin: 1.0,
+                cardStyle: SerieGridCardStyle(
+                  textBackgroundColor: Color(0xee424242),
+                  selectedLayerColor: Color(0x66747474),
+                  textStyle: TextStyle(
+                    fontSize: 18, 
+                    color: Color(0xffffffff)
+                  ),
+                ),
+              ),
+            );
+          });
+        } else {
+          return MaterialPageRoute(builder: (context) => Container());
+        }
+      },
     );
   }
 }
