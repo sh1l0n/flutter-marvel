@@ -32,9 +32,24 @@ class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
     }
     _isLoading = true;
     final series = await MarvelApi().getSeries(_currentOffset, _limit);
-    _currentOffset += _limit;
     _isLoading = false;
     value = series;
+  }
+
+  Future<void> getNext() async {
+    if (_isLoading) {
+        return;
+    }
+    _currentOffset += _limit;
+    await reload();
+  }
+  
+  Future<void> getLast() async {
+    if (_isLoading && _currentOffset>_limit) {
+        return;
+    }
+    _currentOffset -= _limit;
+    await reload();
   }
 }
 

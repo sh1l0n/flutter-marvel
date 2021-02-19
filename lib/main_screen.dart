@@ -99,10 +99,10 @@ class _MainScreenState extends State<MainScreen> {
             : NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
                   if (scrollInfo is ScrollStartNotification && scrollInfo.metrics.extentBefore == 0) {
-                    print('getless');
+                    notifier.getLast();
                     return true;
                   } else if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
-                    print('getmore!');
+                    notifier.getNext();
                     return true;
                   }
                   return false;
