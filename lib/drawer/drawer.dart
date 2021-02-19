@@ -37,10 +37,11 @@ class MarvelDrawer extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemBuilder: (final BuildContext c, final int index) {
           final title = bloc.categories[index];
+          final extra = bloc.selected==index ? 'SEL' : '';
           return DrawerItem(
-            title: title,
+            title: title + extra,
             onTap: () {
-              print('onTap $title');
+              bloc.selectCategory(c, index);
             }
           );
         },

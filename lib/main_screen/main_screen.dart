@@ -23,9 +23,10 @@ class MainScreenStyle {
 }
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key key, @required this.bloc, @required this.style}) : super(key: key);
+  const MainScreen({Key key, @required this.bloc, @required this.drawerBLoC, @required this.style}) : super(key: key);
   final MainScreenStyle style;
   final MainScreenBLoC bloc;
+  final MarvelDrawerBLoC drawerBLoC;
 
   static String get route => '/';
 
@@ -70,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
           title: Text('Hello world'),
         ),
       ),
-      drawer: MarvelDrawer(bloc: MarvelDrawerBLoC()),
+      drawer: MarvelDrawer(bloc: widget.drawerBLoC),
       body: StreamBuilder(
         stream: bloc.reloadSeriesStream,
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {

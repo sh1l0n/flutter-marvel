@@ -7,10 +7,13 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:marvel/drawer/drawer_bloc.dart';
+import 'package:marvel/support/support.dart';
 
 import 'main_screen/main_screen_bloc.dart';
 import 'main_screen/main_screen.dart';
 import 'main_screen/serie_card.dart';
+import 'settings/settings.dart';
 
 
 void main() async {
@@ -24,6 +27,9 @@ class MyApp extends StatelessWidget {
     final width = MediaQuery.of(c).size.width;
     return width>600;
   }
+
+  final drawerBLoC = MarvelDrawerBLoC();
+  final mainScreenBLoC = MainScreenBLoC();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,8 @@ class MyApp extends StatelessWidget {
         if (route == MainScreen.route) {
            return MaterialPageRoute(builder: (context) {
             return MainScreen(
-              bloc: MainScreenBLoC(),
+              bloc: mainScreenBLoC,
+              drawerBLoC: drawerBLoC,
               style: MainScreenStyle(
                 columns: isBigScreen(context) ? 3 : 2, 
                 verticalMargin: 2.0, 
@@ -55,8 +62,10 @@ class MyApp extends StatelessWidget {
               ),
             );
           });
-        } else {
-          return MaterialPageRoute(builder: (context) => Container());
+        } else if (route == SettingsScreen.route) {
+          return MaterialPageRoute(builder: (context) => SettingsScreen(drawerBLoC: drawerBLoC));
+        } else if (route == SupportScreen.route) {
+          return MaterialPageRoute(builder: (context) => SupportScreen(drawerBLoC: drawerBLoC));
         }
       },
     );

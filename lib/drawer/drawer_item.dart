@@ -19,7 +19,6 @@ class DrawerItem extends StatefulWidget {
 }
 
 class _DrawerItemState extends State<DrawerItem> {
-
   bool _isEnabled;
 
   @override
@@ -36,7 +35,6 @@ class _DrawerItemState extends State<DrawerItem> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTapDown: (final TapDownDetails details) {
         _handleTap(true);
