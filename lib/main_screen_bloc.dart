@@ -18,16 +18,23 @@ class MainScreenBLoC {
 
   List<MarvelSerieWrapper> _series = [];
   List<MarvelSerieWrapper> get series => _series;
-  // MarvelSerieNotifier _notifier = MarvelSerieNotifier();
-  // MarvelSerieNotifier get notifier => _notifier;
 
-  final _limit = 20;
   int _currentOffset = 0;
   bool _isLoading = false;
+  int get _limit => 20;
+  int get scrollThreshold => (_limit*0.4).round();
+
+  Future<void> shouldUpdate(final int scrollIndex) async {
+    final shouldUpdate = _limit - scrollIndex - _currentOffset <= scrollThreshold;
+    if (shouldUpdate) {
+      _currentOffset += _limit;
+      await _reload(force: true);
+    }
+  }
 
 
-  Future<void> reset() async {
-    if (_isLoading) {
+  Future<void> reset({bool force = false}) async {
+    if (_isLoading && !force) {
       return;
     }
     _currentOffset = 0;
@@ -38,8 +45,8 @@ class MainScreenBLoC {
     await _reload();
   }
 
-  Future<void> _reload() async {
-    if (_isLoading) {
+  Future<void> _reload({bool force = false}) async {
+    if (_isLoading && !force) {
       return;
     }
     _isLoading = true;
@@ -49,22 +56,6 @@ class MainScreenBLoC {
     if (_reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);
     }
-  }
-
-  Future<void> getNext() async {
-    if (_isLoading) {
-        return;
-    }
-    _currentOffset += _limit;
-    await _reload();
-  }
-  
-  Future<void> getLast() async {
-    if (_isLoading && _currentOffset>_limit) {
-        return;
-    }
-    _currentOffset -= _limit;
-    await _reload();
   }
 
   void dispose() {

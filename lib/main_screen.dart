@@ -44,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       itemCount: bloc.series.length,
       itemBuilder: (final BuildContext c, final int index) {
+        bloc.shouldUpdate(index);
         final serie = bloc.series[index];
         return Container(
           color: Color(0xff272727),
@@ -87,20 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return const Center(child: Text('No data!'));
               })
-            : NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification scrollInfo) {
-                  // if (scrollInfo is ScrollStartNotification && scrollInfo.metrics.extentBefore == 0) {
-                  //   bloc.getLast();
-                  //   return true;
-                  // } else 
-                  if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
-                    bloc.getNext();
-                    return true;
-                  }
-                  return false;
-                },
-                child: buildGrid(),
-            ),
+            :  buildGrid(),
         );
     });
   }
