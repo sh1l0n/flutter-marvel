@@ -46,11 +46,29 @@ class _MyHomePageState extends State<MyHomePage> {
   final mainScreenBloC = MainScreenBLoC();
   final drawerBLoC = MarvelDrawerBLoC();
 
+  bool isBigScreen(final BuildContext c) {
+    final width = MediaQuery.of(context).size.width;
+    return width>600;
+  }
+
+  MainScreenStyle getMainScreenStyle(final BuildContext c) {
+    return MainScreenStyle(
+      columns: isBigScreen(c) ? 3 : 2, 
+      verticalMargin: 2.0, 
+      horizontalMargin: 1.0,
+      cardStyle: SerieGridCardStyle(
+        textBackgroundColor: Color(0xee424242),
+        selectedLayerColor: Color(0x66747474),
+        textStyle: TextStyle(
+          fontSize: 18, 
+          color: Color(0xffffffff)
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final width = MediaQuery.of(context).size.width;
-    final isBigScreen = width>600;
 
     return Scaffold(
       appBar:  PreferredSize(
@@ -63,19 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: MainScreen(
           bloc: mainScreenBloC,
-          style: MainScreenStyle(
-            columns: isBigScreen ? 3 : 2, 
-            verticalMargin: 2.0, 
-            horizontalMargin: 1.0,
-            cardStyle: SerieGridCardStyle(
-              textBackgroundColor: Color(0xee424242),
-              selectedLayerColor: Color(0x66747474),
-              textStyle: TextStyle(
-                fontSize: 18, 
-                color: Color(0xffffffff)
-              ),
-            ),
-          ),
+          style: getMainScreenStyle(context),
         ),
       ),
     );
