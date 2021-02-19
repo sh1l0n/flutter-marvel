@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
           child: MainScreen(
             bloc: MainScreenBLoC(),
-            style: MainScreenStyle(columns: 2, verticalMargin: 5.0, horizontalMargin: 6.0),
+            style: MainScreenStyle(columns: 2, verticalMargin: 2.0, horizontalMargin: 1.0),
             ),
       ),
     );

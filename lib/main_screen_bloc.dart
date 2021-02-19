@@ -5,10 +5,8 @@
 // This file is part of Flutter-Marvel project
 //
 
-import 'package:flutter/foundation.dart';
 import 'package:lib_marvel/marvel_api.dart';
 import 'dart:async';
-
 
 class MainScreenBLoC {
 
@@ -31,7 +29,6 @@ class MainScreenBLoC {
       await _reload(force: true);
     }
   }
-
 
   Future<void> reset({bool force = false}) async {
     if (_isLoading && !force) {

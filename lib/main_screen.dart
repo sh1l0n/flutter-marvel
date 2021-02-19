@@ -20,6 +20,51 @@ class MainScreenStyle {
   final double horizontalMargin;
 }
 
+class SerieGridCard extends StatelessWidget {
+  const SerieGridCard({Key key, @required this.serie}) : super(key: key);
+
+  final MarvelSerieWrapper serie;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double fontSize = 18;
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Color(0xff272727),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Center(child: Image(image: NetworkImage(serie.imagePath))),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              height: fontSize*3,
+              color: Color(0xee424242),
+              child: Center(
+                child: Text(
+                  serie.title, 
+                  style: TextStyle(fontSize: fontSize, color: Color(0xffffffff)),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key key, @required this.bloc, @required this.style}) : super(key: key);
   final MainScreenStyle style;
@@ -46,22 +91,7 @@ class _MainScreenState extends State<MainScreen> {
       itemBuilder: (final BuildContext c, final int index) {
         bloc.shouldUpdate(index);
         final serie = bloc.series[index];
-        return Container(
-          color: Color(0xff272727),
-          child: Stack(
-            children: [
-              Center(child: Image(image: NetworkImage(serie.imagePath))),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 50,
-                  color: Color(0xcc424242),
-                  child: Text(serie.title, style: TextStyle(color: Color(0xffffffff))),
-                )
-              ),
-            ],
-          )
-        );
+        return SerieGridCard(serie: serie);
       },
     );
   }
@@ -71,12 +101,9 @@ class _MainScreenState extends State<MainScreen> {
     return StreamBuilder(
       stream: bloc.reloadSeriesStream,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        
-        print('bloc.series: ${bloc.series.length}');
         if (bloc.series==null) {
           return Center(child: CircularProgressIndicator());
         }
-
         return RefreshIndicator(
           onRefresh: () async {
             await bloc.reset();
