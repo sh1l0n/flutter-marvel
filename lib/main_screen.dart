@@ -61,8 +61,15 @@ class _MainScreenState extends State<MainScreen> {
       ),
       itemCount: series.length,
       itemBuilder: (final BuildContext c, final int index) {
+        final serie = series[index];
         return Container(
           color: Color(0xffff0000),
+          child: Column(
+            children: [
+              Image(image: NetworkImage(serie.imagePath)),
+              Text(serie.title),
+            ],
+          )
         );
       },
     );
@@ -79,6 +86,7 @@ class _MainScreenState extends State<MainScreen> {
 
         return RefreshIndicator(
           onRefresh: () async {
+            print('reload');
             return await notifier.reload();
           },
           child: series.isEmpty 
@@ -90,7 +98,10 @@ class _MainScreenState extends State<MainScreen> {
               })
             : NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
-                  if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
+                  if (scrollInfo is ScrollStartNotification && scrollInfo.metrics.extentBefore == 0) {
+                    print('getless');
+                    return true;
+                  } else if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
                     print('getmore!');
                     return true;
                   }
