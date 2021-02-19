@@ -1,5 +1,5 @@
 //
-// Created by sh1l0n
+// Created by @sh1l0n
 //
 // Licensed by GPLv3
 // This file is part of Flutter-Marvel project

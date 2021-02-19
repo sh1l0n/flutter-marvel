@@ -1,15 +1,13 @@
 //
-// Created by sh1l0n
+// Created by @sh1l0n
 //
 // Licensed by GPLv3
 // This file is part of Flutter-Marvel project
 //
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/rendering/sliver_grid.dart';
-import 'package:flutter/src/rendering/sliver.dart';
 import 'package:flutter/widgets.dart';
-import 'package:marvel/main_screen_bloc.dart';
+
 import 'package:lib_marvel/marvel_api.dart';
 
 import 'main_screen_bloc.dart';
@@ -34,21 +32,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
 
   MainScreenBLoC get bloc => widget.bloc;
-
-
-  MarvelSerieNotifier notifier;
-
-  @override
-  void initState() {
-    super.initState();
-    notifier =  MarvelSerieNotifier();
-  }
-
-  @override
-  void dispose() {
-    notifier.dispose();
-    super.dispose();
-  }
 
   Widget buildGrid(final List<MarvelSerieWrapper> series) {
     return GridView.builder(
@@ -85,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<MarvelSerieWrapper>>(
-      valueListenable: notifier,
+      valueListenable: bloc.notifier,
       builder: (BuildContext context, List<MarvelSerieWrapper> series, Widget child) {
         if (series==null) {
           return Center(child: CircularProgressIndicator());
@@ -94,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
         return RefreshIndicator(
           onRefresh: () async {
             print('reload');
-            return await notifier.reload();
+            await bloc.reload();
           },
           child: series.isEmpty 
             ? ListView.builder(
@@ -105,11 +88,12 @@ class _MainScreenState extends State<MainScreen> {
               })
             : NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
-                  if (scrollInfo is ScrollStartNotification && scrollInfo.metrics.extentBefore == 0) {
-                    notifier.getLast();
-                    return true;
-                  } else if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
-                    notifier.getNext();
+                  // if (scrollInfo is ScrollStartNotification && scrollInfo.metrics.extentBefore == 0) {
+                  //   bloc.getLast();
+                  //   return true;
+                  // } else 
+                  if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
+                    bloc.getNext();
                     return true;
                   }
                   return false;

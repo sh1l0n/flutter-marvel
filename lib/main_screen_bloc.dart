@@ -1,5 +1,5 @@
 //
-// Created by sh1l0n
+// Created by @sh1l0n
 //
 // Licensed by GPLv3
 // This file is part of Flutter-Marvel project
@@ -14,10 +14,6 @@ class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
 
   List<MarvelSerieWrapper> _series = [];
 
-  final _limit = 20;
-  int _currentOffset = 0;
-  bool _isLoading = false;
-
   @override
   List<MarvelSerieWrapper> get value => _series;
   @override
@@ -25,6 +21,35 @@ class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
     _series = newValue;
     notifyListeners();
   }
+}
+
+class MainScreenBLoC {
+
+  final _getSeriesController = StreamController<List<MarvelSerieWrapper>>.broadcast();
+  Stream<List<MarvelSerieWrapper>> get getSeriesStream => _getSeriesController.stream;
+
+  List<MarvelSerieWrapper> _series = [];
+  MarvelSerieNotifier _notifier = MarvelSerieNotifier();
+  MarvelSerieNotifier get notifier => _notifier;
+
+  final _limit = 20;
+  int _currentOffset = 0;
+  bool _isLoading = false;
+
+  // Future<List<MarvelSerieWrapper>> getSeries(final int offset, final int limit) async {
+  //   var completer = Completer<List<MarvelSerieWrapper>>();
+  //   if (offset<0 || limit<=0) {
+  //     completer.complete([]);
+  //     return completer.future;
+  //   }
+
+  //   if (offset + limit>_series.length) {
+  //     _series += await MarvelApi().getSeries(offset, limit);
+  //   } 
+
+  //   completer.complete(_series.sublist(offset, limit).toList());
+  //   return completer.future;
+  // }
 
   Future<void> reload() async {
     if (_isLoading) {
@@ -33,7 +58,7 @@ class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
     _isLoading = true;
     final series = await MarvelApi().getSeries(_currentOffset, _limit);
     _isLoading = false;
-    value = series;
+    notifier.value = series;
   }
 
   Future<void> getNext() async {
@@ -51,33 +76,9 @@ class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
     _currentOffset -= _limit;
     await reload();
   }
-}
-
-class MainScreenBLoC {
-
-  final _getSeriesController = StreamController<List<MarvelSerieWrapper>>.broadcast();
-  Stream<List<MarvelSerieWrapper>> get getSeriesStream => _getSeriesController.stream;
-
-  List<MarvelSerieWrapper> _series = [];
-  MarvelSerieNotifier _notifier = MarvelSerieNotifier();
-  MarvelSerieNotifier get notifier => _notifier;
-
-  // Future<List<MarvelSerieWrapper>> getSeries(final int offset, final int limit) async {
-  //   var completer = Completer<List<MarvelSerieWrapper>>();
-  //   if (offset<0 || limit<=0) {
-  //     completer.complete([]);
-  //     return completer.future;
-  //   }
-
-  //   if (offset + limit>_series.length) {
-  //     _series += await MarvelApi().getSeries(offset, limit);
-  //   } 
-
-  //   completer.complete(_series.sublist(offset, limit).toList());
-  //   return completer.future;
-  // }
 
   void dispose() {
     _getSeriesController.close();
+    _notifier.dispose();
   }
 }
