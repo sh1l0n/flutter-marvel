@@ -8,9 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:lib_marvel/marvel_api.dart';
-
 import 'main_screen_bloc.dart';
+import 'serie_card.dart';
 
 
 class MainScreenStyle {
@@ -18,51 +17,6 @@ class MainScreenStyle {
   final int columns;
   final double verticalMargin;
   final double horizontalMargin;
-}
-
-class SerieGridCard extends StatelessWidget {
-  const SerieGridCard({Key key, @required this.serie}) : super(key: key);
-
-  final MarvelSerieWrapper serie;
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double fontSize = 18;
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: Color(0xff272727),
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: Center(child: Image(image: NetworkImage(serie.imagePath))),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              height: fontSize*3,
-              color: Color(0xee424242),
-              child: Center(
-                child: Text(
-                  serie.title, 
-                  style: TextStyle(fontSize: fontSize, color: Color(0xffffffff)),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class MainScreen extends StatefulWidget {
@@ -91,7 +45,12 @@ class _MainScreenState extends State<MainScreen> {
       itemBuilder: (final BuildContext c, final int index) {
         bloc.shouldUpdate(index);
         final serie = bloc.series[index];
-        return SerieGridCard(serie: serie);
+        return SerieGridCard(
+          serie: serie,
+          onTap: () {
+            print('onTap: $index');
+          },
+        );
       },
     );
   }

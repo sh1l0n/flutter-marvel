@@ -5,23 +5,15 @@
 // This file is part of Flutter-Marvel project
 //
 
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lib_marvel/marvel_api.dart';
-import 'package:marvel/main_screen_bloc.dart';
+import 'package:marvel/main_screen/main_screen_bloc.dart';
 
-import 'main_screen.dart';
+import 'main_screen/main_screen.dart';
 
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
-  final series = await MarvelApi().getSeries(0, 20);
-  print('series: $series');
-
   runApp(MyApp());
 }
 
@@ -49,6 +41,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+
+    final width = MediaQuery.of(context).size.width;
+    final isBigScreen = width>600;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -56,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
           child: MainScreen(
             bloc: MainScreenBLoC(),
-            style: MainScreenStyle(columns: 2, verticalMargin: 2.0, horizontalMargin: 1.0),
+            style: MainScreenStyle(columns: isBigScreen ? 3 : 2, verticalMargin: 2.0, horizontalMargin: 1.0),
             ),
       ),
     );
