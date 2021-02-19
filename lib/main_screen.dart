@@ -63,11 +63,18 @@ class _MainScreenState extends State<MainScreen> {
       itemBuilder: (final BuildContext c, final int index) {
         final serie = series[index];
         return Container(
-          color: Color(0xffff0000),
-          child: Column(
+          color: Color(0xff272727),
+          child: Stack(
             children: [
-              Image(image: NetworkImage(serie.imagePath)),
-              Text(serie.title),
+              Center(child: Image(image: NetworkImage(serie.imagePath))),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 50,
+                  color: Color(0xcc424242),
+                  child: Text(serie.title, style: TextStyle(color: Color(0xffffffff))),
+                )
+              ),
             ],
           )
         );
