@@ -1,36 +1,44 @@
 
-# 1. Get API keys
+
+
+# DOING
+
+
+# DONE
+## 1. Get API keys
 https://developer.marvel.com/documentation/getting_started
 
-# 2. Main screen gridview
+## 2. Main screen gridview
 - Access to /v1/public/series
 
 - GridView 2-3 columnas
 - GridView cell (thumbnail and title)
 
-# 3. Main screen pull to refresh
+## 3. Main screen pull to refresh
 - Pull to Refresh
 - Refresh when user arrived to final of the list
 
-# 4. AppBar
+
+# TODO
+## 4. AppBar
 - AppBar with title
 - Drawer with settings/support icons
 
-# 5. Details screen
+## 5. Details screen
 - Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 
-# 6. Settings screen
+## 6. Settings screen
 - Settings title at center
 
-# 7. Support screen
+## 7. Support screen
 - Support title at center
 
-# 8. Set FontName
+## 8. Set FontName
 - Fontname Monserrat
 
-# 9. Internacionalization
+## 9. Internacionalization
 - English and Spanish read from device
 
-# 10. Customize colors
+## 10. Customize colors
 
-# 11. User Navigator
+## 11. User Navigator
