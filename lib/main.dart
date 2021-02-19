@@ -9,6 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/main_screen/main_screen_bloc.dart';
 
+import 'drawer/drawer.dart';
+import 'drawer/drawer_bloc.dart';
 import 'main_screen/main_screen.dart';
 import 'main_screen/serie_card.dart';
 
@@ -42,6 +44,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   final mainScreenBloC = MainScreenBLoC();
+  final drawerBLoC = MarvelDrawerBLoC();
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
     final isBigScreen = width>600;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar:  PreferredSize(
+          preferredSize: Size.fromHeight(50.0), // here the desired height
+          child: AppBar(
+            title: Text(widget.title),
+        ),
       ),
-      drawer: Drawer(
-        child: Container(),
-      ),
+      drawer: MarvelDrawer(bloc: drawerBLoC),
       body: Center(
         child: MainScreen(
           bloc: mainScreenBloC,
