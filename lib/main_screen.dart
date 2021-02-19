@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
 
   MainScreenBLoC get bloc => widget.bloc;
 
-  Widget buildGrid(final List<MarvelSerieWrapper> series) {
+  Widget buildGrid() {
     return GridView.builder(
       scrollDirection: Axis.vertical,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -42,9 +42,9 @@ class _MainScreenState extends State<MainScreen> {
         crossAxisSpacing: widget.style.horizontalMargin,
         mainAxisSpacing: widget.style.verticalMargin
       ),
-      itemCount: series.length,
+      itemCount: bloc.series.length,
       itemBuilder: (final BuildContext c, final int index) {
-        final serie = series[index];
+        final serie = bloc.series[index];
         return Container(
           color: Color(0xff272727),
           child: Stack(
@@ -67,19 +67,20 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<List<MarvelSerieWrapper>>(
-      valueListenable: bloc.notifier,
-      builder: (BuildContext context, List<MarvelSerieWrapper> series, Widget child) {
-        if (series==null) {
+    return StreamBuilder(
+      stream: bloc.reloadSeriesStream,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        
+        print('bloc.series: ${bloc.series.length}');
+        if (bloc.series==null) {
           return Center(child: CircularProgressIndicator());
         }
 
         return RefreshIndicator(
           onRefresh: () async {
-            print('reload');
-            await bloc.reload();
+            await bloc.reset();
           },
-          child: series.isEmpty 
+          child: bloc.series.isEmpty 
             ? ListView.builder(
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: 1,
@@ -98,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                   }
                   return false;
                 },
-                child: buildGrid(series),
+                child: buildGrid(),
             ),
         );
     });

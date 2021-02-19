@@ -9,56 +9,46 @@ import 'package:flutter/foundation.dart';
 import 'package:lib_marvel/marvel_api.dart';
 import 'dart:async';
 
-class MarvelSerieNotifier extends ValueNotifier<List<MarvelSerieWrapper>> {
-  MarvelSerieNotifier() : super(null);
-
-  List<MarvelSerieWrapper> _series = [];
-
-  @override
-  List<MarvelSerieWrapper> get value => _series;
-  @override
-  set value(List<MarvelSerieWrapper> newValue) {
-    _series = newValue;
-    notifyListeners();
-  }
-}
 
 class MainScreenBLoC {
 
-  final _getSeriesController = StreamController<List<MarvelSerieWrapper>>.broadcast();
-  Stream<List<MarvelSerieWrapper>> get getSeriesStream => _getSeriesController.stream;
+  final _getSeriesController = StreamController<bool>.broadcast();
+  Stream<bool> get reloadSeriesStream => _getSeriesController.stream;
+  Sink<bool> get _reloadSeriesSink => _getSeriesController.sink;
 
   List<MarvelSerieWrapper> _series = [];
-  MarvelSerieNotifier _notifier = MarvelSerieNotifier();
-  MarvelSerieNotifier get notifier => _notifier;
+  List<MarvelSerieWrapper> get series => _series;
+  // MarvelSerieNotifier _notifier = MarvelSerieNotifier();
+  // MarvelSerieNotifier get notifier => _notifier;
 
   final _limit = 20;
   int _currentOffset = 0;
   bool _isLoading = false;
 
-  // Future<List<MarvelSerieWrapper>> getSeries(final int offset, final int limit) async {
-  //   var completer = Completer<List<MarvelSerieWrapper>>();
-  //   if (offset<0 || limit<=0) {
-  //     completer.complete([]);
-  //     return completer.future;
-  //   }
 
-  //   if (offset + limit>_series.length) {
-  //     _series += await MarvelApi().getSeries(offset, limit);
-  //   } 
+  Future<void> reset() async {
+    if (_isLoading) {
+      return;
+    }
+    _currentOffset = 0;
+    _series.clear();
+    if (_reloadSeriesSink!=null) {
+      _reloadSeriesSink.add(true);
+    }
+    await _reload();
+  }
 
-  //   completer.complete(_series.sublist(offset, limit).toList());
-  //   return completer.future;
-  // }
-
-  Future<void> reload() async {
+  Future<void> _reload() async {
     if (_isLoading) {
       return;
     }
     _isLoading = true;
     final series = await MarvelApi().getSeries(_currentOffset, _limit);
+    _series.addAll(series);
     _isLoading = false;
-    notifier.value = series;
+    if (_reloadSeriesSink!=null) {
+      _reloadSeriesSink.add(true);
+    }
   }
 
   Future<void> getNext() async {
@@ -66,7 +56,7 @@ class MainScreenBLoC {
         return;
     }
     _currentOffset += _limit;
-    await reload();
+    await _reload();
   }
   
   Future<void> getLast() async {
@@ -74,11 +64,10 @@ class MainScreenBLoC {
         return;
     }
     _currentOffset -= _limit;
-    await reload();
+    await _reload();
   }
 
   void dispose() {
     _getSeriesController.close();
-    _notifier.dispose();
   }
 }
