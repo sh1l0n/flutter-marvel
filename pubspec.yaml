@@ -51,6 +51,7 @@ flutter:
 
   assets:
     - ./assets/env.json
+    - ./assets/env2.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -5,6 +5,7 @@
 // This file is part of Flutter-Marvel project
 //
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:lib_marvel/marvel_api.dart';
@@ -75,11 +76,15 @@ class _SerieGridCardState extends State<SerieGridCard> {
   @override
   Widget build(BuildContext context) {
 
+    
+
     final pressedContainer = Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color(0xffff0000),
+      color: Color(0x66747474),
     );
+
+    final card = buildCard();
   
     return GestureDetector(
       onTapDown: (final TapDownDetails details) {
@@ -92,7 +97,7 @@ class _SerieGridCardState extends State<SerieGridCard> {
       onTapCancel: () {
         _handleTap(false);
       },
-      child: _isEnabled ? buildCard() : pressedContainer,
+      child: _isEnabled ? card : Stack(children: [card, pressedContainer]),
     );
   }
 }

@@ -39,6 +39,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final mainScreenBloC = MainScreenBLoC();
+
   @override
   Widget build(BuildContext context) {
 
@@ -51,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
           child: MainScreen(
-            bloc: MainScreenBLoC(),
+            bloc: mainScreenBloC,
             style: MainScreenStyle(columns: isBigScreen ? 3 : 2, verticalMargin: 2.0, horizontalMargin: 1.0),
             ),
       ),
