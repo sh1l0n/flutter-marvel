@@ -5,11 +5,14 @@
 // This file is part of Flutter-Marvel project
 //
 
+import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_grid.dart';
 import 'package:flutter/src/rendering/sliver.dart';
 import 'package:flutter/widgets.dart';
 import 'package:marvel/main_screen_bloc.dart';
 import 'package:lib_marvel/marvel_api.dart';
+
+import 'main_screen_bloc.dart';
 
 
 class MainScreenStyle {
@@ -32,38 +35,70 @@ class _MainScreenState extends State<MainScreen> {
 
   MainScreenBLoC get bloc => widget.bloc;
 
-  Widget buildGrid(final BuildContext context) {
-    return StreamBuilder(
-      stream: bloc.getSeriesStream,
-      builder: (final BuildContext context, final AsyncSnapshot<List<MarvelSerieWrapper>> snapshot) {
-        final List<MarvelSerieWrapper> data = snapshot.hasData ? snapshot.data : [];
-        return GridView.builder(
-          scrollDirection: Axis.vertical,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 3/2,
-            crossAxisCount: widget.style.columns,
-            crossAxisSpacing: widget.style.horizontalMargin,
-            mainAxisSpacing: widget.style.verticalMargin
-          ),
-          itemCount: data.length,
-          itemBuilder: (final BuildContext c, final int index) {
-            return Container(
-              color: Color(0xffff0000),
-            );
-          }
+
+  MarvelSerieNotifier notifier;
+
+  @override
+  void initState() {
+    super.initState();
+    notifier =  MarvelSerieNotifier();
+  }
+
+  @override
+  void dispose() {
+    notifier.dispose();
+    super.dispose();
+  }
+
+  Widget buildGrid(final List<MarvelSerieWrapper> series) {
+    return GridView.builder(
+      scrollDirection: Axis.vertical,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: 3/2,
+        crossAxisCount: widget.style.columns,
+        crossAxisSpacing: widget.style.horizontalMargin,
+        mainAxisSpacing: widget.style.verticalMargin
+      ),
+      itemCount: series.length,
+      itemBuilder: (final BuildContext c, final int index) {
+        return Container(
+          color: Color(0xffff0000),
         );
       },
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: size.height,
-      child: buildGrid(context),
-    );
+    return ValueListenableBuilder<List<MarvelSerieWrapper>>(
+      valueListenable: notifier,
+      builder: (BuildContext context, List<MarvelSerieWrapper> series, Widget child) {
+        if (series==null) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        return RefreshIndicator(
+          onRefresh: () async {
+            return await notifier.reload();
+          },
+          child: series.isEmpty 
+            ? ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return const Center(child: Text('No data!'));
+              })
+            : NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification scrollInfo) {
+                  if (scrollInfo is ScrollEndNotification && scrollInfo.metrics.extentAfter == 0) {
+                    print('getmore!');
+                    return true;
+                  }
+                  return false;
+                },
+                child: buildGrid(series),
+            ),
+        );
+    });
   }
 }

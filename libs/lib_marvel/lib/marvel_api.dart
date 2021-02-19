@@ -44,7 +44,7 @@ class MarvelApi {
 
   MarvelApi._internal();
 
-  Future<MarvelApiWrapper> getEnv() async {
+  Future<MarvelApiWrapper> _getEnv() async {
     var completer = Completer<MarvelApiWrapper>();
     final jsonData = await rootBundle.loadString(environmentFile);
     final jsonResult = json.decode(jsonData);
@@ -64,7 +64,7 @@ class MarvelApi {
   Future<List<MarvelSerieWrapper>> getSeries(final int offset, final int limit)  async {
     var completer = Completer<List<MarvelSerieWrapper>>();
 
-    final env = await getEnv();
+    final env = await _getEnv();
     
     final ts = generateNone().toString();
     final hash = await md5.convert(utf8.encode(ts + env.secret + env.public)).toString();    
