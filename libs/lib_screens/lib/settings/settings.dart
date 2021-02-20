@@ -18,6 +18,7 @@ class SettingsScreenStyle {
   final TextStyle textStyle;
 }
 
+//  ##TODO: Should be Stateless not Stateful
 class SettingsScreen extends BaseScaffold {
   const SettingsScreen({Key key, @required this.style, @required DrawerBLoC drawerBLoC}) : super(key: key, drawerBLoC: drawerBLoC);
   

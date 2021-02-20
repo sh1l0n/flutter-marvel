@@ -18,8 +18,9 @@ import '../base_scaffold.dart';
 
 
 class MainScreen extends BaseScaffold {
-  const MainScreen({Key key, @required DrawerBLoC drawerBLoC, @required this.style}) : super(key: key, drawerBLoC: drawerBLoC);
+  const MainScreen({Key key, @required this.bloc, @required DrawerBLoC drawerBLoC, @required this.style}) : super(key: key, drawerBLoC: drawerBLoC);
   final NetworkGridStyle style;
+  final MarvelGridRefreshingBLoC bloc;
 
   static String get route => '/';
 
@@ -27,22 +28,12 @@ class MainScreen extends BaseScaffold {
   State<StatefulWidget> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends BaseScaffoldState {
-
-  MarvelGridRefreshingBLoC bloc;
-  NetworkGridStyle get style => (widget as MainScreen).style;
-  
-  @override
-  void initState() {
-    super.initState();
-    bloc = MarvelGridRefreshingBLoC();
-  }
-
+class _MainScreenState extends BaseScaffoldState {  
   @override
   Widget buildBody(final BuildContext context) {
     return NetworkGrid(
-      bloc: bloc, 
-      style: style,
+      bloc: (widget as MainScreen).bloc, 
+      style: (widget as MainScreen).style,
       onTap: (final NetworkGridDataWrapper serie) {
          Navigator.pushNamed(context, DetailsScreen.route, arguments: serie);
       }

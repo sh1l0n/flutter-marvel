@@ -14,6 +14,7 @@ import 'package:lib_screens/details/details_card.dart';
 
 import 'details/details_bloc.dart';
 import 'details/details_screen.dart';
+import 'main_screen/marvel_grid_refreshing_bloc.dart';
 import 'support/support.dart';
 import 'main_screen/main_screen.dart';
 import 'settings/settings.dart';
@@ -32,6 +33,8 @@ class NavigatorManager extends StatelessWidget {
     DrawerItemModel(title: 'Support', route: '/support', icon: Icons.support_agent),
   ]);
 
+  final marvelSeriesBLoC = MarvelGridRefreshingBLoC();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,6 +48,7 @@ class NavigatorManager extends StatelessWidget {
         if (route == MainScreen.route) {
            return MaterialPageRoute(builder: (context) {
             return MainScreen(
+              bloc: marvelSeriesBLoC,
               drawerBLoC: drawerBLoC,
               style: NetworkGridStyle(
                 columns: isBigScreen(context) ? 3 : 2, 
