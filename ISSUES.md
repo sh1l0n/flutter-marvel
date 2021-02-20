@@ -2,9 +2,7 @@
 
 
 # DOING
-## 4. AppBar
-- AppBar with title
-- Drawer with settings/support icons
+
 
 
 # DONE
@@ -27,13 +25,19 @@ https://developer.marvel.com/documentation/getting_started
 ## 7. Support screen
 - Support title at center
 
+## 4. AppBar
+- AppBar with title
+- Drawer with settings/support icons
+
+## 10. Customize colors
+
+## 11. User Navigator
+
 
 # TODO
 
 ## 5. Details screen
 - Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
-
-
 
 ## 8. Set FontName
 - Fontname Monserrat
@@ -41,6 +45,6 @@ https://developer.marvel.com/documentation/getting_started
 ## 9. Internacionalization
 - English and Spanish read from device
 
-## 10. Customize colors
+## 12. Use animations on navigator
 
-## 11. User Navigator
+
