@@ -10,13 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
 
 import 'details_bloc.dart';
+import 'details_card.dart';
 
 
 class DetailsScreenStyle {
-  const DetailsScreenStyle({@required this.appBarColor, @required this.appBarHeight, @required this.backgroundColor});
+  const DetailsScreenStyle({@required this.appBarColor, @required this.appBarHeight, @required this.backgroundColor, @required this.cardStyle});
   final Color appBarColor;
   final double appBarHeight;
   final Color backgroundColor;
+  final DetailsCardStyle cardStyle;
 }
 
 class DetailsScreen extends StatelessWidget {
@@ -44,8 +46,7 @@ class DetailsScreen extends StatelessWidget {
         final creators = bloc.creators;
         return ListView.builder(
           itemBuilder: (final BuildContext context, final int index) {
-            final creator = creators[index];
-            return Text(creator.title ?? 'Unknown');
+            return DetailsCard(data: creators[index], style: style.cardStyle);
           },
           itemCount: creators.length,
         );

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
+import 'package:lib_screens/details/details_card.dart';
 
 import 'details/details_bloc.dart';
 import 'details/details_screen.dart';
@@ -71,6 +72,13 @@ class NavigatorManager extends StatelessWidget {
                 appBarColor: Color(0xff424242), 
                 appBarHeight: 50, 
                 backgroundColor: Color(0xff242424),
+                cardStyle: DetailsCardStyle(
+                  backgroundColor: Color(0xff747474),
+                  textStyle: TextStyle(
+                    fontSize: 22,
+                    color: Color(0xffffffff),
+                  ),
+                ),
               ),
             );
           });
