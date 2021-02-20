@@ -38,7 +38,14 @@ class BaseScaffoldState extends State<BaseScaffold> {
         preferredSize: Size.fromHeight(50.0), // here the desired height
         child: AppBar(
           backgroundColor: Color(0xff424242),
-          title: Text(title),
+          title: Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Monserrat',
+              package: 'lib_assets'
+            ),
+          ),
         ),
       ),
       drawer: CustomDrawer(
@@ -48,9 +55,21 @@ class BaseScaffoldState extends State<BaseScaffold> {
           backgroundColor: Color(0xff424242),
           headerColor: Color(0xff242424),
           headerHeight: 50,
-          headerTextStyle: TextStyle(fontSize: 24, color: Color(0xffffffff)),
+          headerTextStyle: TextStyle(
+            fontSize: 24, 
+            color: Color(0xffffffff),
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Monserrat',
+            package: 'lib_assets',
+          ),
           drawerItemStyle: DrawerItemStyle(
-            textStyle: TextStyle(fontSize: 18, color: Color(0xffffffff)), 
+            textStyle: TextStyle(
+              fontSize: 18, 
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Monserrat',
+              package: 'lib_assets',
+            ), 
             height: 50, 
             marginBetweenIconText: 5, 
             selectedColor: Color(0xff727272),

@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
     
+  lib_assets:
+    path: ../../libs/lib_assets
+
   lib_marvel:
     path: ../../libs/lib_marvel
 

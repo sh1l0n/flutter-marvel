@@ -2,9 +2,9 @@
 
 
 # DOING
-## 5. Details screen
-- Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 
+## 9. Internacionalization
+- English and Spanish read from device
 
 
 # DONE
@@ -35,14 +35,15 @@ https://developer.marvel.com/documentation/getting_started
 
 ## 11. User Navigator
 
+## 5. Details screen
+- Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
+
 
 # TODO
 
 ## 8. Set FontName
 - Fontname Monserrat
 
-## 9. Internacionalization
-- English and Spanish read from device
 
 ## 12. Use animations on navigator
 

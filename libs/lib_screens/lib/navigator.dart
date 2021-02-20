@@ -55,7 +55,10 @@ class NavigatorManager extends StatelessWidget {
                   selectedLayerColor: Color(0x66747474),
                   textStyle: TextStyle(
                     fontSize: 18, 
-                    color: Color(0xffffffff)
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Monserrat',
+                    package: 'lib_assets'
                   ),
                 ),
               ),
@@ -79,6 +82,9 @@ class NavigatorManager extends StatelessWidget {
                   textStyle: TextStyle(
                     fontSize: 22,
                     color: Color(0xffffffff),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Monserrat',
+                    package: 'lib_assets'
                   ),
                 ),
               ),
@@ -89,7 +95,13 @@ class NavigatorManager extends StatelessWidget {
             return SettingsScreen(
               drawerBLoC: drawerBLoC,
               style: SettingsScreenStyle(
-                textStyle: TextStyle(fontSize: 22, color: Color(0xffffffff))
+                textStyle: TextStyle(
+                  fontSize: 22, 
+                  color: Color(0xffffffff),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Monserrat',
+                  package: 'lib_assets',
+                ),
               )
             );
           });
@@ -98,7 +110,13 @@ class NavigatorManager extends StatelessWidget {
             return SupportScreen(
               drawerBLoC: drawerBLoC,
               style: SupportScreenStyle(
-                textStyle: TextStyle(fontSize: 22, color: Color(0xffffffff))
+                textStyle: TextStyle(
+                  fontSize: 22, 
+                  color: Color(0xffffffff),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Monserrat',
+                  package: 'lib_assets'
+                ),
               )
             );
           });

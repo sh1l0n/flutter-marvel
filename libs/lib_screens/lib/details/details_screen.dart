@@ -83,7 +83,15 @@ class DetailsScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(style.appBarHeight), // here the desired height
         child: AppBar(
           backgroundColor: style.appBarColor,
-          title: Text('Creators from: ${serie.title}', overflow: TextOverflow.ellipsis),
+          title: Text(
+            'Creators from: ${serie.title}', 
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Monserrat',
+              package: 'lib_assets'
+            ),
+          ),
           leading: homeButton(context),
         ),
       ),
