@@ -11,9 +11,9 @@ import 'network_grid_card.dart';
 
 abstract class NetworkGridBLoC {
 
-  final _getSeriesController = StreamController<bool>.broadcast();
-  Stream<bool> get reloadSeriesStream => _getSeriesController.stream;
-  Sink<bool> get _reloadSeriesSink => _getSeriesController.sink;
+  final _reloadSeriesController = StreamController<bool>.broadcast();
+  Stream<bool> get reloadSeriesStream => _reloadSeriesController.stream;
+  Sink<bool> get _reloadSeriesSink => _reloadSeriesController.sink;
 
   List<NetworkGridDataWrapper> _data = [];
   List<NetworkGridDataWrapper> get data => _data;
@@ -39,7 +39,9 @@ abstract class NetworkGridBLoC {
     }
     _currentOffset = 0;
     _data.clear();
-    if (_reloadSeriesSink!=null) {
+    
+    
+    if (_reloadSeriesController.hasListener && _reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);
     }
     await _reload();
@@ -54,12 +56,12 @@ abstract class NetworkGridBLoC {
     _isLoading = true;
     _data.addAll(await reload());
     _isLoading = false;
-    if (_reloadSeriesSink!=null) {
+    if (_reloadSeriesController.hasListener && _reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);
     }
   }
 
   void dispose() {
-    _getSeriesController.close();
+    _reloadSeriesController.close();
   }
 }
