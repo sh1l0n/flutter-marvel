@@ -15,12 +15,15 @@ import 'package:lib_screens/navigator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeLanguage();
+  runApp(NavigatorManager());
+}
+
+Future<void> initializeLanguage() async {
   final systemLocale = await findSystemLocale();
   if (systemLocale.split('_')[0] != 'es') {
     Intl.defaultLocale = 'en_US';
   } else {
     Intl.defaultLocale = 'es';
   }
-
-  runApp(NavigatorManager());
 }
