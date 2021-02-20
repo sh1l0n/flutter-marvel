@@ -188,23 +188,30 @@ packages:
     source: hosted
     version: "2.2.2"
   lib_drawer:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "libs/lib_drawer"
       relative: true
     source: path
     version: "0.0.0"
   lib_marvel:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "libs/lib_marvel"
       relative: true
     source: path
     version: "0.0.0"
   lib_network_grid:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "libs/lib_network_grid"
+      relative: true
+    source: path
+    version: "0.0.0"
+  lib_screens:
+    dependency: "direct main"
+    description:
+      path: "libs/lib_screens"
       relative: true
     source: path
     version: "0.0.0"

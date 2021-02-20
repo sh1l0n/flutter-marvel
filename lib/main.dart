@@ -12,9 +12,9 @@ import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
 
-import 'support/support.dart';
-import 'main_screen/main_screen.dart';
-import 'settings/settings.dart';
+import 'package:lib_screens/support/support.dart';
+import 'package:lib_screens/main_screen/main_screen.dart';
+import 'package:lib_screens/settings/settings.dart';
 
 
 void main() async {

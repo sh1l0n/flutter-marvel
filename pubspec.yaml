@@ -24,14 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  lib_marvel:
-    path: ./libs/lib_marvel
-
-  lib_drawer:
-    path: ./libs/lib_drawer
-
-  lib_network_grid:
-    path: ./libs/lib_network_grid
+  lib_screens:
+    path: ./libs/lib_screens
 
 
   # The following adds the Cupertino Icons font to your application.

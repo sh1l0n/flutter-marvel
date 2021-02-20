@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
-import 'package:marvel/main_screen/marvel_grid_refreshing_bloc.dart';
-
 import 'package:lib_network_grid/network_grid.dart';
 
+import 'marvel_grid_refreshing_bloc.dart';
 import '../base_scaffold.dart';
 
 

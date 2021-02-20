@@ -1,0 +1,23 @@
+name: lib_screens
+description: A simple command-line application.
+# version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.10.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  lib_marvel:
+    path: ../../libs/lib_marvel
+
+  lib_drawer:
+    path: ../../libs/lib_drawer
+
+  lib_network_grid:
+    path: ../../libs/lib_network_grid
+
+dev_dependencies:
+  pedantic: ^1.9.0
