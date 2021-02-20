@@ -40,15 +40,14 @@ class MarvelCreatorWrapper extends MarvelSerieWrapper {
   const MarvelCreatorWrapper(final int id, final String title, final String imagePath) : super(id, title, imagePath);
   
   static MarvelCreatorWrapper fromJson(final Map<String, dynamic> data) {
-    // final id = data['id'] as int;
-    // final title = data['title'] as String;
-    // final thumbnail = data['thumbnail'] as Map<String, dynamic>;
-    // final imagePath = thumbnail['path'] as String;
-    // final imageExtension = thumbnail['extension'] as String;
-    // final imageUrl = imagePath + '.' + imageExtension;
-    // return MarvelSerieWrapper(id, title, imageUrl);
+    final id = data['id'] as int;
+    final fullname = data['fullName'] as String;
+    final thumbnail = data['thumbnail'] as Map<String, dynamic>;
+    final imagePath = thumbnail['path'] as String;
+    final imageExtension = thumbnail['extension'] as String;
+    final imageUrl = imagePath + '.' + imageExtension;
+    return MarvelCreatorWrapper(id, fullname, imageUrl);
   }
-
 }
 
 class MarvelApiWrapper {
@@ -129,7 +128,6 @@ class MarvelApi {
     }
 
     completer.complete(series);
-    
     return completer.future;
   }  
 
@@ -139,7 +137,7 @@ class MarvelApi {
     final env = await _getEnv();
     
     final ts = generateNone().toString();
-    final hash = getHash(env, ts);    
+    final hash = await getHash(env, ts);    
     final params = 'ts=$ts&apikey=${env.public}&hash=$hash';
     final path = '/v1/public/series/$serieId/creators'; 
     final url = apiUrl + path + '?' + params;
@@ -148,19 +146,16 @@ class MarvelApi {
 
     // ignore: omit_local_variable_types
     List<MarvelCreatorWrapper> creators = [];
-    
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = jsonDecode(response.body);
       final data = jsonData['data'] as Map<String, dynamic>;
       final results = data['results'] as List;
-      print('results: $results');
-      // results.forEach((final result) { 
-      //   creators += [MarvelCreatorWrapper.fromJson(result)];
-      // });
+      results.forEach((final result) { 
+        creators += [MarvelCreatorWrapper.fromJson(result)];
+      });
     }
 
     completer.complete(creators);
-    
     return completer.future;
   }  
 }

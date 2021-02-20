@@ -38,20 +38,31 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget buildCreatorList() {
-    
+    return StreamBuilder(
+      stream: bloc.reloadSerieInfoStream,
+      builder: (final BuildContext c, final AsyncSnapshot<bool> snp) {
+        final creators = bloc.creators;
+        return ListView.builder(
+          itemBuilder: (final BuildContext context, final int index) {
+            final creator = creators[index];
+            return Text(creator.title ?? 'Unknown');
+          },
+          itemCount: creators.length,
+        );
+      }
+    );
   }
 
   @override
   Widget build(final BuildContext context) {
-
-    print('serie: $serie');
+    bloc.udpateInfo(serie.id);
 
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: Size.fromHeight(style.appBarHeight), // here the desired height
         child: AppBar(
           backgroundColor: style.appBarColor,
-          title: Text(serie.title, overflow: TextOverflow.ellipsis),
+          title: Text('Creators from: ${serie.title}', overflow: TextOverflow.ellipsis),
           leading: homeButton(context),
         ),
       ),
