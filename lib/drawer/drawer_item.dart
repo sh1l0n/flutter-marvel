@@ -8,11 +8,22 @@
 import 'package:flutter/material.dart';
 
 
+class DrawerItemStyle {
+  const DrawerItemStyle({@required this.textStyle, @required this.height, @required this.marginBetweenIconText, @required this.selectedColor});
+  final TextStyle textStyle;
+  final double height;
+  final double marginBetweenIconText;
+  final Color selectedColor;
+}
+
 class DrawerItem extends StatefulWidget {
-  const DrawerItem({Key key, @required this.title, @required this.onTap}) : super(key: key);
+  const DrawerItem({Key key, @required this.title, @required this.icon, @required this.style, @required this.onTap, @required this.isSelected}) : super(key: key);
 
   final String title;
+  final IconData icon;
+  final DrawerItemStyle style;
   final Function onTap;
+  final bool isSelected;
 
   @override
   State<StatefulWidget> createState() => _DrawerItemState();
@@ -53,9 +64,16 @@ class _DrawerItemState extends State<DrawerItem> {
   Widget buildItem() {
     return Container(
       width: double.infinity,
-      height: 30,
-      color: _isEnabled ? Color(0x00ffffff) : Color(0xff000000),
-      child: Text(widget.title),
+      height: widget.style.height,
+      color: _isEnabled && !widget.isSelected ? Color(0x00ffffff) : widget.style.selectedColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(widget.icon),
+          Container(width: widget.style.marginBetweenIconText),
+          Text(widget.title, style: widget.style.textStyle),
+        ],
+      )
     );
   }
 }

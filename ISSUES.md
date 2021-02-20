@@ -21,17 +21,19 @@ https://developer.marvel.com/documentation/getting_started
 - Pull to Refresh
 - Refresh when user arrived to final of the list
 
+## 6. Settings screen
+- Settings title at center
+
+## 7. Support screen
+- Support title at center
+
 
 # TODO
 
 ## 5. Details screen
 - Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 
-## 6. Settings screen
-- Settings title at center
 
-## 7. Support screen
-- Support title at center
 
 ## 8. Set FontName
 - Fontname Monserrat

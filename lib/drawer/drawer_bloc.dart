@@ -14,6 +14,12 @@ class MarvelDrawerBLoC {
     2: 'Support'
   };
 
+  final Map<int, IconData> icons = {
+    0: Icons.library_books,
+    1: Icons.settings,
+    2: Icons.support_agent,
+  };
+
   final Map<int, String> routes = {
     0: '/',
     1: '/settings',
