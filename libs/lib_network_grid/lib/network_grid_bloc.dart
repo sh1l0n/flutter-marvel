@@ -19,14 +19,16 @@ abstract class NetworkGridBLoC {
   List<NetworkGridDataWrapper> get data => _data;
 
   int _currentOffset = 0;
+  int get currentOffset => _currentOffset;
+
   bool _isLoading = false;
-  int get _limit => 20;
-  int get scrollThreshold => (_limit*0.4).round();
+  int get limit => 20;
+  int get scrollThreshold => (limit*0.4).round();
 
   Future<void> shouldUpdate(final int scrollIndex) async {
-    final shouldUpdate = _limit - scrollIndex - _currentOffset <= scrollThreshold;
+    final shouldUpdate = limit - scrollIndex - _currentOffset <= scrollThreshold;
     if (shouldUpdate) {
-      _currentOffset += _limit;
+      _currentOffset += limit;
       await _reload(force: true);
     }
   }
@@ -51,11 +53,6 @@ abstract class NetworkGridBLoC {
     }
     _isLoading = true;
     _data.addAll(await reload());
-    // final series = await MarvelApi().getSeries(_currentOffset, _limit);
-    // series.forEach((element) {
-    //   _data.add(NetworkGridDataWrapper(element.id, element.title, element.imagePath));
-    // });
-    
     _isLoading = false;
     if (_reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);

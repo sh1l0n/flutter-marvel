@@ -9,11 +9,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
+import 'package:lib_network_grid/network_grid.dart';
+import 'package:lib_network_grid/network_grid_card.dart';
 
 import 'support/support.dart';
-import 'main_screen/main_screen_bloc.dart';
 import 'main_screen/main_screen.dart';
-import '../libs/lib_network_grid/lib/serie_card.dart';
 import 'settings/settings.dart';
 
 
@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
     DrawerItemModel(title: 'Settings', route: '/settings', icon: Icons.settings),
     DrawerItemModel(title: 'Support', route: '/support', icon: Icons.support_agent),
   ]);
-  final mainScreenBLoC = MainScreenBLoC();
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,8 @@ class MyApp extends StatelessWidget {
         if (route == MainScreen.route) {
            return MaterialPageRoute(builder: (context) {
             return MainScreen(
-              bloc: mainScreenBLoC,
               drawerBLoC: drawerBLoC,
-              style: MainScreenStyle(
+              style: NetworkGridStyle(
                 columns: isBigScreen(context) ? 3 : 2, 
                 verticalMargin: 2.0, 
                 horizontalMargin: 1.0,
