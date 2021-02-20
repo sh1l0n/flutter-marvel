@@ -29,11 +29,12 @@ class BaseScaffoldState extends State<BaseScaffold> {
 
   @override
   Widget build(final BuildContext context) {
+    final title = widget.drawerBLoC.categories[widget.drawerBLoC.selected];
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: Size.fromHeight(50.0), // here the desired height
         child: AppBar(
-          title: Text('Hello world'),
+          title: Text(title),
         ),
       ),
       drawer: MarvelDrawer(bloc: widget.drawerBLoC),
