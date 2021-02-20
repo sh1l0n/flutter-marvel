@@ -2,6 +2,8 @@
 
 
 # DOING
+## 5. Details screen
+- Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 
 
 
@@ -35,9 +37,6 @@ https://developer.marvel.com/documentation/getting_started
 
 
 # TODO
-
-## 5. Details screen
-- Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 
 ## 8. Set FontName
 - Fontname Monserrat

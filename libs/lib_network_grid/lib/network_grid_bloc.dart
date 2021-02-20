@@ -15,7 +15,7 @@ abstract class NetworkGridBLoC {
   Stream<bool> get reloadSeriesStream => _reloadSeriesController.stream;
   Sink<bool> get _reloadSeriesSink => _reloadSeriesController.sink;
 
-  List<NetworkGridDataWrapper> _data = [];
+  final List<NetworkGridDataWrapper> _data = [];
   List<NetworkGridDataWrapper> get data => _data;
 
   int _currentOffset = 0;

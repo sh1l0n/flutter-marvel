@@ -5,13 +5,14 @@
 // This file is part of Flutter-Marvel project
 //
 
-
 import 'package:flutter/material.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
 
+import 'details/details_bloc.dart';
+import 'details/details_screen.dart';
 import 'support/support.dart';
 import 'main_screen/main_screen.dart';
 import 'settings/settings.dart';
@@ -40,7 +41,6 @@ class NavigatorManager extends StatelessWidget {
       initialRoute: MainScreen.route,
       onGenerateRoute: (final RouteSettings settings) {
         final route = settings.name;
-
         if (route == MainScreen.route) {
            return MaterialPageRoute(builder: (context) {
             return MainScreen(
@@ -57,6 +57,20 @@ class NavigatorManager extends StatelessWidget {
                     color: Color(0xffffffff)
                   ),
                 ),
+              ),
+            );
+          });
+        } else if (route == DetailsScreen.route) {
+          return MaterialPageRoute(builder: (context) {
+            final NetworkGridDataWrapper serie = settings.arguments;
+
+            return DetailsScreen(
+              serie: serie,
+              bloc: DetailsScreenBLoC(), 
+              style: DetailsScreenStyle(
+                appBarColor: Color(0xff424242), 
+                appBarHeight: 50, 
+                backgroundColor: Color(0xff242424),
               ),
             );
           });

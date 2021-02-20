@@ -21,9 +21,10 @@ class NetworkGridStyle {
 }
 
 class NetworkGrid extends StatelessWidget {
-  const NetworkGrid({Key key, @required this.bloc, @required this.style}) : super(key: key);
+  const NetworkGrid({Key key, @required this.bloc, @required this.style, @required this.onTap}) : super(key: key);
   final NetworkGridStyle style;
   final NetworkGridBLoC bloc;
+  final Function(NetworkGridDataWrapper) onTap;
 
   static String get route => '/';
 
@@ -69,7 +70,7 @@ class NetworkGrid extends StatelessWidget {
           data: NetworkGridDataWrapper(serie.id, serie.title, serie.imagePath),
           style: style.cardStyle,
           onTap: () {
-            print('onTap: $index');
+            onTap(serie);
           },
         );
       },
