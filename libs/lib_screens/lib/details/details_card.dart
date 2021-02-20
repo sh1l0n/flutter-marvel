@@ -24,25 +24,29 @@ class DetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final height = style.textStyle.fontSize*2;
+
     return Container(
       width: double.infinity,
-      height: style.textStyle.fontSize*2,
+      height: height,
       color: style.backgroundColor,
       child: Row(
         children: [
           Container(
+            width: height,
+            height: height,
             child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: Center(child: Image(image: NetworkImage(data.imagePath))),
-            ),
+              fit: BoxFit.fill,
+              child: Image(image: NetworkImage(data.imagePath)),
+            )
           ),
-          Center(
-            child: Text(
-              data.title, 
-              style: style.textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
+          Container(width: style.textStyle.fontSize*0.25),
+          Text(
+            data.title, 
+            style: style.textStyle,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ],
       ),

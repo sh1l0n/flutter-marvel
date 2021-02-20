@@ -72,8 +72,10 @@ class NavigatorManager extends StatelessWidget {
                 appBarColor: Color(0xff424242), 
                 appBarHeight: 50, 
                 backgroundColor: Color(0xff242424),
+                itemSeparation: 5,
+                horizontalMargin: 2,
                 cardStyle: DetailsCardStyle(
-                  backgroundColor: Color(0xff747474),
+                  backgroundColor: Color(0x33747474),
                   textStyle: TextStyle(
                     fontSize: 22,
                     color: Color(0xffffffff),

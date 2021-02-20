@@ -14,10 +14,12 @@ import 'details_card.dart';
 
 
 class DetailsScreenStyle {
-  const DetailsScreenStyle({@required this.appBarColor, @required this.appBarHeight, @required this.backgroundColor, @required this.cardStyle});
+  const DetailsScreenStyle({@required this.appBarColor, @required this.appBarHeight, @required this.backgroundColor, @required this.itemSeparation, @required this.horizontalMargin, @required this.cardStyle});
   final Color appBarColor;
   final double appBarHeight;
   final Color backgroundColor;
+  final double itemSeparation;
+  final double horizontalMargin;
   final DetailsCardStyle cardStyle;
 }
 
@@ -44,9 +46,27 @@ class DetailsScreen extends StatelessWidget {
       stream: bloc.reloadSerieInfoStream,
       builder: (final BuildContext c, final AsyncSnapshot<bool> snp) {
         final creators = bloc.creators;
+
+        if (creators.isEmpty) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: style.cardStyle.backgroundColor,
+              strokeWidth: 3,
+            ),
+          );
+        }
+
         return ListView.builder(
+          physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (final BuildContext context, final int index) {
-            return DetailsCard(data: creators[index], style: style.cardStyle);
+            return Padding(
+              padding: EdgeInsets.only(
+                left: style.horizontalMargin,
+                right: style.horizontalMargin,
+                top: style.itemSeparation,
+              ),
+              child: DetailsCard(data: creators[index], style: style.cardStyle),
+            );
           },
           itemCount: creators.length,
         );
