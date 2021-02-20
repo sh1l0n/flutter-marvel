@@ -1,7 +1,5 @@
 # DOING
 
-# 13. Add progress to network images...
-
 
 # DONE
 ## 1. Get API keys
@@ -28,6 +26,7 @@ https://developer.marvel.com/documentation/getting_started
 - Fontname Monserrat
 ## 9. Internacionalization
 - English and Spanish read from device
+# 13. Add progress to network images...
 
 # TODO
 ## 12. Use animations on navigator
