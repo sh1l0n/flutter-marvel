@@ -21,7 +21,8 @@ class NetworkGridStyle {
 }
 
 class NetworkGrid extends StatelessWidget {
-  const NetworkGrid({Key key, @required this.bloc, @required this.style, @required this.onTap}) : super(key: key);
+  const NetworkGrid({Key key, @required this.placeholder, @required this.bloc, @required this.style, @required this.onTap}) : super(key: key);
+  final String placeholder;
   final NetworkGridStyle style;
   final NetworkGridBLoC bloc;
   final Function(NetworkGridDataWrapper) onTap;
@@ -49,7 +50,7 @@ class NetworkGrid extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'Pull To Refresh',
+                          placeholder,
                           style: style.cardStyle.textStyle,
                         ),
                         Center(

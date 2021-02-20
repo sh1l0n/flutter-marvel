@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lib_assets/location.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
 
@@ -34,7 +35,7 @@ class _SettingsScreenState extends BaseScaffoldState {
   @override
   Widget buildBody(BuildContext context) {
     return Center(
-      child: Text('Settings', style: (widget as SettingsScreen).style.textStyle),
+      child: Text(it(LocationId.settings, true), style: (widget as SettingsScreen).style.textStyle),
     );
   }
 }

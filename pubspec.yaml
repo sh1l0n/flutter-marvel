@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  intl: ^0.16.1
+
   lib_screens:
     path: ./libs/lib_screens
 

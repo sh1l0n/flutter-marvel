@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lib_assets/location.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
@@ -32,6 +33,7 @@ class _MainScreenState extends BaseScaffoldState {
   @override
   Widget buildBody(final BuildContext context) {
     return NetworkGrid(
+      placeholder: it(LocationId.pullToRefresh),
       bloc: (widget as MainScreen).bloc, 
       style: (widget as MainScreen).style,
       onTap: (final NetworkGridDataWrapper serie) {

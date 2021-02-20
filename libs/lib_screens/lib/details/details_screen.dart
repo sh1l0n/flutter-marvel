@@ -6,6 +6,7 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:lib_assets/location.dart';
 
 import 'package:lib_network_grid/network_grid_card.dart';
 
@@ -84,7 +85,7 @@ class DetailsScreen extends StatelessWidget {
         child: AppBar(
           backgroundColor: style.appBarColor,
           title: Text(
-            'Creators from: ${serie.title}', 
+            serie.title, 
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontWeight: FontWeight.w400,

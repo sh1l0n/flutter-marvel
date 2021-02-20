@@ -6,6 +6,7 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:lib_assets/location.dart';
 
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
@@ -28,9 +29,9 @@ class NavigatorManager extends StatelessWidget {
   }
 
   final drawerBLoC = DrawerBLoC([
-    DrawerItemModel(title: 'Series', route: '/', icon: Icons.library_books),
-    DrawerItemModel(title: 'Settings', route: '/settings', icon: Icons.settings),
-    DrawerItemModel(title: 'Support', route: '/support', icon: Icons.support_agent),
+    DrawerItemModel(title: it(LocationId.series, true), route: '/', icon: Icons.library_books),
+    DrawerItemModel(title: it(LocationId.settings, true), route: '/settings', icon: Icons.settings),
+    DrawerItemModel(title: it(LocationId.support, true), route: '/support', icon: Icons.support_agent),
   ]);
 
   final marvelSeriesBLoC = MarvelGridRefreshingBLoC();
