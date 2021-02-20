@@ -16,6 +16,7 @@ class MarvelGridRefreshingBLoC extends NetworkGridBLoC {
   @override
   Future<List<NetworkGridDataWrapper>> reload() async {
     var completer = Completer<List<NetworkGridDataWrapper>>();
+    // ignore: omit_local_variable_types
     final List<NetworkGridDataWrapper> data =  [];
     final series = await MarvelApi().getSeries(currentOffset, limit);
     series.forEach((element) {

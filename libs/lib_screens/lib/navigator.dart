@@ -6,19 +6,19 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:lib_assets/location.dart';
 
+import 'package:lib_assets/location.dart';
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
-import 'package:lib_screens/details/details_card.dart';
 
 import 'details/details_bloc.dart';
+import 'details/details_card.dart';
 import 'details/details_screen.dart';
 import 'main_screen/marvel_grid_refreshing_bloc.dart';
-import 'support/support.dart';
 import 'main_screen/main_screen.dart';
 import 'settings/settings.dart';
+import 'support/support.dart';
 
 
 class NavigatorManager extends StatelessWidget {

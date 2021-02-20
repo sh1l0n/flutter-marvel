@@ -18,12 +18,13 @@ class DrawerItemModel {
 class DrawerBLoC {
 
   DrawerBLoC(final List<DrawerItemModel> items) {
+    // ignore: omit_local_variable_types
     for(int i=0; i<items.length; i++) {
       _categories[i] = items[i];
     }
   }
 
-  Map<int, DrawerItemModel> _categories = {};
+  final Map<int, DrawerItemModel> _categories = {};
   Map<int, DrawerItemModel> get categories => _categories;
 
   int _selected = 0;

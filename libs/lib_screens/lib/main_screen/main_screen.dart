@@ -7,15 +7,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lib_assets/location.dart';
 
+import 'package:lib_assets/location.dart';
 import 'package:lib_drawer/drawer_bloc.dart';
 import 'package:lib_network_grid/network_grid.dart';
 import 'package:lib_network_grid/network_grid_card.dart';
-import 'package:lib_screens/details/details_screen.dart';
 
-import 'marvel_grid_refreshing_bloc.dart';
 import '../base_scaffold.dart';
+import '../details/details_screen.dart';
+import 'marvel_grid_refreshing_bloc.dart';
 
 
 class MainScreen extends BaseScaffold {

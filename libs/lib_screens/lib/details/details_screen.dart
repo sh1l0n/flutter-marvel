@@ -6,7 +6,6 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:lib_assets/location.dart';
 
 import 'package:lib_network_grid/network_grid_card.dart';
 

@@ -9,6 +9,7 @@ import 'dart:async';
 
 import 'network_grid_card.dart';
 
+
 abstract class NetworkGridBLoC {
 
   final _reloadSeriesController = StreamController<bool>.broadcast();

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+
 class NetworkGridDataWrapper {
   const NetworkGridDataWrapper(this.id, this.title, this.imagePath);
   final int id;
@@ -122,7 +123,6 @@ class _NetworkGridCardState extends State<NetworkGridCard> {
 
   @override
   Widget build(BuildContext context) {
-
     final card = buildCard();
   
     return GestureDetector(

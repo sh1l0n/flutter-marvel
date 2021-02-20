@@ -7,8 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lib_assets/location.dart';
 
+import 'package:lib_assets/location.dart';
 import 'package:lib_drawer/drawer_bloc.dart';
 
 import '../base_scaffold.dart';
