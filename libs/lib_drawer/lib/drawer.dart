@@ -6,8 +6,8 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:marvel/drawer/drawer_bloc.dart';
 
+import 'drawer_bloc.dart';
 import 'drawer_item.dart';
 
 
@@ -19,7 +19,6 @@ class CustomDrawerStyle {
   final TextStyle headerTextStyle;
   final DrawerItemStyle drawerItemStyle;
 }
-
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key key, @required this.title, @required this.bloc, @required this.style}) : super(key: key);

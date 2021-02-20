@@ -5,19 +5,18 @@
 // This file is part of Flutter-Marvel project
 //
 
-import 'package:lib_marvel/marvel_api.dart';
 import 'dart:async';
 
-import '../../libs/lib_network_grid/lib/network_serie_card.dart';
+import 'network_grid_card.dart';
 
-class MainScreenBLoC {
+abstract class NetworkGridBLoC {
 
   final _getSeriesController = StreamController<bool>.broadcast();
   Stream<bool> get reloadSeriesStream => _getSeriesController.stream;
   Sink<bool> get _reloadSeriesSink => _getSeriesController.sink;
 
-  List<NetworkGridDataWrapper> _series = [];
-  List<NetworkGridDataWrapper> get series => _series;
+  List<NetworkGridDataWrapper> _data = [];
+  List<NetworkGridDataWrapper> get data => _data;
 
   int _currentOffset = 0;
   bool _isLoading = false;
@@ -37,22 +36,25 @@ class MainScreenBLoC {
       return;
     }
     _currentOffset = 0;
-    _series.clear();
+    _data.clear();
     if (_reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);
     }
     await _reload();
   }
 
+  Future<List<NetworkGridDataWrapper>> reload();
+
   Future<void> _reload({bool force = false}) async {
     if (_isLoading && !force) {
       return;
     }
     _isLoading = true;
-    final series = await MarvelApi().getSeries(_currentOffset, _limit);
-    series.forEach((element) {
-      _series.add(NetworkGridDataWrapper(element.id, element.title, element.imagePath));
-    });
+    _data.addAll(await reload());
+    // final series = await MarvelApi().getSeries(_currentOffset, _limit);
+    // series.forEach((element) {
+    //   _data.add(NetworkGridDataWrapper(element.id, element.title, element.imagePath));
+    // });
     
     _isLoading = false;
     if (_reloadSeriesSink!=null) {

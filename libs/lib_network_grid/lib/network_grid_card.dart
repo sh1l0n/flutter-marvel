@@ -5,31 +5,42 @@
 // This file is part of Flutter-Marvel project
 //
 
+import 'dart:convert';
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:lib_marvel/marvel_api.dart';
+class NetworkGridDataWrapper {
+  const NetworkGridDataWrapper(this.id, this.title, this.imagePath);
+  final int id;
+  final String title;
+  final String imagePath;
+  Map<String, dynamic> toJson() => {'id': id, 'title': title, 'imagePath': imagePath};
+  @override
+  String toString() {
+    return jsonEncode(toJson());
+  }
+}
 
-
-class SerieGridCardStyle {
-  const SerieGridCardStyle({@required this.textBackgroundColor, @required this.textStyle, @required this.selectedLayerColor});
+class NetworkGridCardStyle {
+  const NetworkGridCardStyle({@required this.textBackgroundColor, @required this.textStyle, @required this.selectedLayerColor});
   final Color textBackgroundColor;
   final TextStyle textStyle;
   final Color selectedLayerColor;
 }
 
-class SerieGridCard extends StatefulWidget {
-  const SerieGridCard({Key key, @required this.serie, @required this.style, @required this.onTap}) : super(key: key);
-  final MarvelSerieWrapper serie;
-  final SerieGridCardStyle style;
+class NetworkGridCard extends StatefulWidget {
+  const NetworkGridCard({Key key, @required this.data, @required this.style, @required this.onTap}) : super(key: key);
+  final NetworkGridDataWrapper data;
+  final NetworkGridCardStyle style;
   final Function onTap;
   @override
-  State<StatefulWidget> createState() => _SerieGridCardState();
+  State<StatefulWidget> createState() => _NetworkGridCardState();
 }
 
-class _SerieGridCardState extends State<SerieGridCard> {
+class _NetworkGridCardState extends State<NetworkGridCard> {
 
-  MarvelSerieWrapper get serie => widget.serie;
+  NetworkGridDataWrapper get data => widget.data;
   bool _isEnabled;
 
   void initState() {
@@ -48,7 +59,7 @@ class _SerieGridCardState extends State<SerieGridCard> {
             height: double.infinity,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Center(child: Image(image: NetworkImage(serie.imagePath))),
+              child: Center(child: Image(image: NetworkImage(data.imagePath))),
             ),
           ),
           Align(
@@ -59,7 +70,7 @@ class _SerieGridCardState extends State<SerieGridCard> {
               color: widget.style.textBackgroundColor,
               child: Center(
                 child: Text(
-                  serie.title, 
+                  data.title, 
                   style: widget.style.textStyle,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,

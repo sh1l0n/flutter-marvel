@@ -13,7 +13,7 @@ import 'package:lib_drawer/drawer_bloc.dart';
 import 'support/support.dart';
 import 'main_screen/main_screen_bloc.dart';
 import 'main_screen/main_screen.dart';
-import 'main_screen/serie_card.dart';
+import '../libs/lib_network_grid/lib/serie_card.dart';
 import 'settings/settings.dart';
 
 
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                 columns: isBigScreen(context) ? 3 : 2, 
                 verticalMargin: 2.0, 
                 horizontalMargin: 1.0,
-                cardStyle: SerieGridCardStyle(
+                cardStyle: NetworkGridCardStyle(
                   textBackgroundColor: Color(0xee424242),
                   selectedLayerColor: Color(0x66747474),
                   textStyle: TextStyle(
