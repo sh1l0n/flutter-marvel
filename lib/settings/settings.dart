@@ -12,8 +12,15 @@ import '../base_scaffold.dart';
 import '../drawer/drawer_bloc.dart';
 
 
+class SettingsScreenStyle {
+  const SettingsScreenStyle({@required this.textStyle});
+  final TextStyle textStyle;
+}
+
 class SettingsScreen extends BaseScaffold {
-  const SettingsScreen({Key key, @required MarvelDrawerBLoC drawerBLoC}) : super(key: key, drawerBLoC: drawerBLoC);
+  const SettingsScreen({Key key, @required this.style, @required MarvelDrawerBLoC drawerBLoC}) : super(key: key, drawerBLoC: drawerBLoC);
+  
+  final SettingsScreenStyle style;
   static String get route => '/settings';
 
   @override
@@ -25,7 +32,7 @@ class _SettingsScreenState extends BaseScaffoldState {
   @override
   Widget buildBody(BuildContext context) {
     return Center(
-      child: Text('Settings'),
+      child: Text('Settings', style: (widget as SettingsScreen).style.textStyle),
     );
   }
 }

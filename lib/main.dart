@@ -63,9 +63,25 @@ class MyApp extends StatelessWidget {
             );
           });
         } else if (route == SettingsScreen.route) {
-          return MaterialPageRoute(builder: (context) => SettingsScreen(drawerBLoC: drawerBLoC));
+          return MaterialPageRoute(builder: (context) {
+            return SettingsScreen(
+              drawerBLoC: drawerBLoC,
+              style: SettingsScreenStyle(
+                textStyle: TextStyle(fontSize: 22, color: Color(0xffffffff))
+              )
+            );
+          });
         } else if (route == SupportScreen.route) {
-          return MaterialPageRoute(builder: (context) => SupportScreen(drawerBLoC: drawerBLoC));
+          return MaterialPageRoute(builder: (context) {
+            return SupportScreen(
+              drawerBLoC: drawerBLoC,
+              style: SupportScreenStyle(
+                textStyle: TextStyle(fontSize: 22, color: Color(0xffffffff))
+              )
+            );
+          });
+        } else {
+          return MaterialPageRoute(builder: (context) => Container());
         }
       },
     );
