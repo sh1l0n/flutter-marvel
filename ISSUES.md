@@ -3,9 +3,11 @@
 
 # DOING
 
+## 8. Set FontName
+- Fontname Monserrat
+
 ## 9. Internacionalization
 - English and Spanish read from device
-
 
 # DONE
 ## 1. Get API keys
@@ -40,10 +42,6 @@ https://developer.marvel.com/documentation/getting_started
 
 
 # TODO
-
-## 8. Set FontName
-- Fontname Monserrat
-
 
 ## 12. Use animations on navigator
 
