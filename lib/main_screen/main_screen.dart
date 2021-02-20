@@ -7,9 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:marvel/drawer/drawer.dart';
 import 'package:marvel/drawer/drawer_bloc.dart';
 
+import '../base_scaffold.dart';
 import 'main_screen_bloc.dart';
 import 'serie_card.dart';
 
@@ -22,11 +22,10 @@ class MainScreenStyle {
   final SerieGridCardStyle cardStyle;
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key key, @required this.bloc, @required this.drawerBLoC, @required this.style}) : super(key: key);
+class MainScreen extends BaseScaffold {
+  const MainScreen({Key key, @required this.bloc, @required MarvelDrawerBLoC drawerBLoC, @required this.style}) : super(key: key, drawerBLoC: drawerBLoC);
   final MainScreenStyle style;
   final MainScreenBLoC bloc;
-  final MarvelDrawerBLoC drawerBLoC;
 
   static String get route => '/';
 
@@ -34,18 +33,44 @@ class MainScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends BaseScaffoldState {
 
-  MainScreenBLoC get bloc => widget.bloc;
+  MainScreenBLoC get bloc => (widget as MainScreen).bloc;
+  MainScreenStyle get style => (widget as MainScreen).style;
+
+  @override
+  Widget buildBody(final BuildContext context) {
+    return StreamBuilder(
+      stream: bloc.reloadSeriesStream,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (bloc.series==null) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return RefreshIndicator(
+          onRefresh: () async {
+            await bloc.reset();
+          },
+          child: bloc.series.isEmpty 
+            ? ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return const Center(child: Text('No data!'));
+              })
+            :  buildGrid(),
+        );
+      }
+    );
+  }
 
   Widget buildGrid() {
     return GridView.builder(
       scrollDirection: Axis.vertical,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: 3/2,
-        crossAxisCount: widget.style.columns,
-        crossAxisSpacing: widget.style.horizontalMargin,
-        mainAxisSpacing: widget.style.verticalMargin
+        crossAxisCount: style.columns,
+        crossAxisSpacing: style.horizontalMargin,
+        mainAxisSpacing: style.verticalMargin
       ),
       itemCount: bloc.series.length,
       itemBuilder: (final BuildContext c, final int index) {
@@ -53,46 +78,12 @@ class _MainScreenState extends State<MainScreen> {
         final serie = bloc.series[index];
         return SerieGridCard(
           serie: serie,
-          style: widget.style.cardStyle,
+          style: style.cardStyle,
           onTap: () {
             print('onTap: $index');
           },
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:  PreferredSize(
-        preferredSize: Size.fromHeight(50.0), // here the desired height
-        child: AppBar(
-          title: Text('Hello world'),
-        ),
-      ),
-      drawer: MarvelDrawer(bloc: widget.drawerBLoC),
-      body: StreamBuilder(
-        stream: bloc.reloadSeriesStream,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (bloc.series==null) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return RefreshIndicator(
-            onRefresh: () async {
-              await bloc.reset();
-            },
-            child: bloc.series.isEmpty 
-              ? ListView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const Center(child: Text('No data!'));
-                })
-              :  buildGrid(),
-          );
-        }
-      ),
     );
   }
 }
