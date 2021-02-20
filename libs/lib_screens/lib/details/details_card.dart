@@ -38,8 +38,26 @@ class DetailsCard extends StatelessWidget {
             height: height,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Image(image: NetworkImage(data.imagePath)),
-            )
+              child: Image(
+                image: NetworkImage(
+                  data.imagePath
+                ),
+                loadingBuilder: (final BuildContext c, final Widget child , final ImageChunkEvent loadingProgress) {
+                  if (loadingProgress==null) {
+                    return child;
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes
+                          : null,
+                      ),
+                    );
+                  }
+                }
+              ),
+            ),
           ),
           Container(width: style.textStyle.fontSize*0.25),
           Text(

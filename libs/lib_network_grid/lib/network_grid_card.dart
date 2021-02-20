@@ -7,6 +7,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
@@ -61,7 +62,27 @@ class _NetworkGridCardState extends State<NetworkGridCard> {
             height: double.infinity,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Center(child: Image(image: NetworkImage(data.imagePath))),
+              child: Center(
+                child: Image(
+                  image: NetworkImage(
+                    data.imagePath
+                  ),
+                  loadingBuilder: (final BuildContext c, final Widget child , final ImageChunkEvent loadingProgress) {
+                    if (loadingProgress==null) {
+                      return child;
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                            : null,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
             ),
           ),
           Align(

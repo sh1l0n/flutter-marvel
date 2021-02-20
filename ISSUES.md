@@ -1,6 +1,7 @@
 # DOING
-## 9. Internacionalization
-- English and Spanish read from device
+
+# 13. Add progress to network images...
+
 
 # DONE
 ## 1. Get API keys
@@ -25,6 +26,8 @@ https://developer.marvel.com/documentation/getting_started
 - Show creators in a list (complete name and thumbnail) from: /v1/public/series/{seriesId}/creators
 ## 8. Set FontName
 - Fontname Monserrat
+## 9. Internacionalization
+- English and Spanish read from device
 
 # TODO
 ## 12. Use animations on navigator
