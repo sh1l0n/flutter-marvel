@@ -10,8 +10,9 @@ import 'package:marvel/drawer/drawer_bloc.dart';
 
 import 'drawer_item.dart';
 
-class MarvelDrawerStyle {
-  const MarvelDrawerStyle({@required this.backgroundColor, @required this.headerHeight, @required this.headerColor, @required this.headerTextStyle, @required this.drawerItemStyle});
+
+class CustomDrawerStyle {
+  const CustomDrawerStyle({@required this.backgroundColor, @required this.headerHeight, @required this.headerColor, @required this.headerTextStyle, @required this.drawerItemStyle});
   final Color backgroundColor;
   final double headerHeight;
   final Color headerColor;
@@ -20,12 +21,12 @@ class MarvelDrawerStyle {
 }
 
 
-class MarvelDrawer extends StatelessWidget {
-  const MarvelDrawer({Key key, @required this.title, @required this.bloc, @required this.style}) : super(key: key);
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key key, @required this.title, @required this.bloc, @required this.style}) : super(key: key);
 
   final String title;
-  final MarvelDrawerBLoC bloc;
-  final MarvelDrawerStyle style;
+  final DrawerBLoC bloc;
+  final CustomDrawerStyle style;
 
   Widget buildHeader() {
     return Container(
@@ -46,11 +47,11 @@ class MarvelDrawer extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemBuilder: (final BuildContext c, final int index) {
-          final title = bloc.categories[index];
+          final cat = bloc.categories[index];
           return DrawerItem(
             isSelected: index==bloc.selected,
-            title: title,
-            icon: bloc.icons[index],
+            title: cat.title,
+            icon: cat.icon,
             style: style.drawerItemStyle,
             onTap: () {
               bloc.selectCategory(c, index);

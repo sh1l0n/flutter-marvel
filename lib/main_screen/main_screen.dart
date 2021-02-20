@@ -7,7 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:marvel/drawer/drawer_bloc.dart';
+
+import 'package:lib_drawer/drawer_bloc.dart';
 
 import '../base_scaffold.dart';
 import 'main_screen_bloc.dart';
@@ -23,7 +24,7 @@ class MainScreenStyle {
 }
 
 class MainScreen extends BaseScaffold {
-  const MainScreen({Key key, @required this.bloc, @required MarvelDrawerBLoC drawerBLoC, @required this.style}) : super(key: key, drawerBLoC: drawerBLoC);
+  const MainScreen({Key key, @required this.bloc, @required DrawerBLoC drawerBLoC, @required this.style}) : super(key: key, drawerBLoC: drawerBLoC);
   final MainScreenStyle style;
   final MainScreenBLoC bloc;
 

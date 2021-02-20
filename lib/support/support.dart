@@ -8,8 +8,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'package:lib_drawer/drawer_bloc.dart';
+
 import '../base_scaffold.dart';
-import '../drawer/drawer_bloc.dart';
+
 
 class SupportScreenStyle {
   const SupportScreenStyle({@required this.textStyle});
@@ -18,7 +20,7 @@ class SupportScreenStyle {
 
 
 class SupportScreen extends BaseScaffold {
-  const SupportScreen({Key key, @required this.style, @required MarvelDrawerBLoC drawerBLoC}) : super(key: key, drawerBLoC: drawerBLoC);
+  const SupportScreen({Key key, @required this.style, @required DrawerBLoC drawerBLoC}) : super(key: key, drawerBLoC: drawerBLoC);
   
   final SupportScreenStyle style;
   static String get route => '/support';

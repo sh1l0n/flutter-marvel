@@ -7,9 +7,10 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:marvel/drawer/drawer_bloc.dart';
-import 'package:marvel/support/support.dart';
 
+import 'package:lib_drawer/drawer_bloc.dart';
+
+import 'support/support.dart';
 import 'main_screen/main_screen_bloc.dart';
 import 'main_screen/main_screen.dart';
 import 'main_screen/serie_card.dart';
@@ -28,7 +29,11 @@ class MyApp extends StatelessWidget {
     return width>600;
   }
 
-  final drawerBLoC = MarvelDrawerBLoC();
+  final drawerBLoC = DrawerBLoC([
+    DrawerItemModel(title: 'Series', route: '/', icon: Icons.library_books),
+    DrawerItemModel(title: 'Settings', route: '/settings', icon: Icons.settings),
+    DrawerItemModel(title: 'Support', route: '/support', icon: Icons.support_agent),
+  ]);
   final mainScreenBLoC = MainScreenBLoC();
 
   @override

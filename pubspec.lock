@@ -187,6 +187,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.2"
+  lib_drawer:
+    dependency: "direct main"
+    description:
+      path: "libs/lib_drawer"
+      relative: true
+    source: path
+    version: "0.0.0"
   lib_marvel:
     dependency: "direct main"
     description:

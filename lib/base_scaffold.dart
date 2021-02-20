@@ -7,14 +7,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:marvel/drawer/drawer.dart';
-import 'package:marvel/drawer/drawer_bloc.dart';
-import 'package:marvel/drawer/drawer_item.dart';
+
+import 'package:lib_drawer/drawer_bloc.dart';
+import 'package:lib_drawer/drawer.dart';
+import 'package:lib_drawer/drawer_item.dart';
 
 
 class BaseScaffold extends StatefulWidget {
   const BaseScaffold({Key key, @required this.drawerBLoC}) : super(key: key);
-  final MarvelDrawerBLoC drawerBLoC;
+  final DrawerBLoC drawerBLoC;
 
   static String get route => '/';
 
@@ -30,7 +31,8 @@ class BaseScaffoldState extends State<BaseScaffold> {
 
   @override
   Widget build(final BuildContext context) {
-    final title = widget.drawerBLoC.categories[widget.drawerBLoC.selected];
+    final title = widget.drawerBLoC.categories[widget.drawerBLoC.selected].title;
+
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: Size.fromHeight(50.0), // here the desired height
@@ -39,10 +41,10 @@ class BaseScaffoldState extends State<BaseScaffold> {
           title: Text(title),
         ),
       ),
-      drawer: MarvelDrawer(
+      drawer: CustomDrawer(
         bloc: widget.drawerBLoC,
         title: 'Marvel Flutter',
-        style: MarvelDrawerStyle(
+        style: CustomDrawerStyle(
           backgroundColor: Color(0xff424242),
           headerColor: Color(0xff242424),
           headerHeight: 50,
