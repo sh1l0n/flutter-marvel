@@ -44,8 +44,23 @@ class NetworkGrid extends StatelessWidget {
             ? ListView.builder(
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return const Center(child: Text('No data!'));
+                itemBuilder: (final BuildContext context, int index) {
+                  return Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          'Pull To Refresh',
+                          style: style.cardStyle.textStyle,
+                        ),
+                        Center(
+                          child: Icon(
+                            Icons.arrow_downward,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
               })
             :  buildGrid(),
         );
