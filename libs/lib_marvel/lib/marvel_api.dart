@@ -41,6 +41,13 @@ class MarvelApiWrapper {
   final String secret;
   final String public;
   Map<String, dynamic> toJson() => {'secret': secret, 'public': public};
+
+  static MarvelApiWrapper fromJson(final Map<String, dynamic> data) {
+    final publicKey = data['apiKey'];
+    final privateKey = data['secretKey'];
+    return MarvelApiWrapper(privateKey, publicKey);
+  }
+
   @override
   String toString() {
     return jsonEncode(toJson());
@@ -59,9 +66,7 @@ class MarvelApi {
     var completer = Completer<MarvelApiWrapper>();
     final jsonData = await rootBundle.loadString(environmentFile);
     final jsonResult = json.decode(jsonData);
-    final publicKey = jsonResult['apiKey'];
-    final privateKey = jsonResult['secretKey'];
-    completer.complete(MarvelApiWrapper(privateKey, publicKey));
+    completer.complete( MarvelApiWrapper.fromJson(jsonResult) );
     return completer.future;
   }
 
