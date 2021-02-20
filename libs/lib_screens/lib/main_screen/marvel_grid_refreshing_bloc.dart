@@ -2,7 +2,7 @@
 // Created by @sh1l0n
 //
 // Licensed by GPLv3
-// This file is part of Flutter-Marvel project
+// This file is part of lib_screens package
 //
 
 import 'package:lib_marvel/marvel_api.dart';
