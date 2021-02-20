@@ -27,7 +27,7 @@ abstract class NetworkGridBLoC {
 
   Future<void> shouldUpdate(final int scrollIndex) async {
     final shouldUpdate = limit - scrollIndex - _currentOffset <= scrollThreshold;
-    if (shouldUpdate) {
+    if (shouldUpdate && !_isLoading) {
       _currentOffset += limit;
       await _reload(force: true);
     }
@@ -39,22 +39,22 @@ abstract class NetworkGridBLoC {
     }
     _currentOffset = 0;
     _data.clear();
-    
+    await _reload();
     
     if (_reloadSeriesController.hasListener && _reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);
     }
-    await _reload();
+
   }
 
-  Future<List<NetworkGridDataWrapper>> reload();
+  Future<List<NetworkGridDataWrapper>> reload() => null;
 
   Future<void> _reload({bool force = false}) async {
     if (_isLoading && !force) {
       return;
     }
     _isLoading = true;
-    _data.addAll(await reload());
+    _data.addAll( (await reload()) ?? []);
     _isLoading = false;
     if (_reloadSeriesController.hasListener && _reloadSeriesSink!=null) {
       _reloadSeriesSink.add(true);

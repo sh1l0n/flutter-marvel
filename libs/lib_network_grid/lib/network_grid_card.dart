@@ -43,6 +43,7 @@ class _NetworkGridCardState extends State<NetworkGridCard> {
   NetworkGridDataWrapper get data => widget.data;
   bool _isEnabled;
 
+  @override
   void initState() {
     super.initState();
     _isEnabled = true;
@@ -52,6 +53,7 @@ class _NetworkGridCardState extends State<NetworkGridCard> {
     return Container(
       width: double.infinity,
       height: double.infinity,
+      color: Color(0x00ffffff),
       child: Stack(
         children: [
           Container(
