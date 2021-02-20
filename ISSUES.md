@@ -30,3 +30,5 @@ https://developer.marvel.com/documentation/getting_started
 
 # TODO
 ## 12. Use animations on navigator
+## 14. Add ddbb
+## 15. Reuse downloaded common images
