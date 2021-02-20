@@ -19,6 +19,17 @@ class MarvelSerieWrapper {
   final String title;
   final String imagePath;
   Map<String, dynamic> toJson() => {'id': id, 'title': title, 'imagePath': imagePath};
+
+  static MarvelSerieWrapper fromJson(final Map<String, dynamic> data) {
+    final id = data['id'] as int;
+    final title = data['title'] as String;
+    final thumbnail = data['thumbnail'] as Map<String, dynamic>;
+    final imagePath = thumbnail['path'] as String;
+    final imageExtension = thumbnail['extension'] as String;
+    final imageUrl = imagePath + '.' + imageExtension;
+    return MarvelSerieWrapper(id, title, imageUrl);
+  }
+  
   @override
   String toString() {
     return jsonEncode(toJson());
@@ -54,7 +65,7 @@ class MarvelApi {
     return completer.future;
   }
 
-  String get environmentFile => 'assets/env.json';
+  String get environmentFile => 'assets/env2.json';
   String get apiUrl => 'https://gateway.marvel.com:443';
 
   int generateNone() {
@@ -87,13 +98,7 @@ class MarvelApi {
       final results = data['results'] as List;
 
       results.forEach((final result) { 
-        final id = result['id'] as int;
-        final title = result['title'] as String;
-        final thumbnail = result['thumbnail'] as Map<String, dynamic>;
-        final imagePath = thumbnail['path'] as String;
-        final imageExtension = thumbnail['extension'] as String;
-        final imageUrl = imagePath + '.' + imageExtension;
-        series += [MarvelSerieWrapper(id, title, imageUrl)];
+        series += [MarvelSerieWrapper.fromJson(result)];
       });
     }
 
