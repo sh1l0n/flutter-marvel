@@ -5,14 +5,16 @@
 // This file is part of Flutter-Marvel project
 //
 
-
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:lib_screens/navigator.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([]);
   initializeLanguage();
   runApp(NavigatorManager());
 }
