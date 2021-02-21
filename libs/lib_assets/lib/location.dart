@@ -24,18 +24,18 @@ String it(final LocationId id, [bool capitalizeFirst = false]) {
 final Map<LocationId, Map<String, String>> _translations = {
   LocationId.series: {
     'en_US': 'series',
-    'es': 'series'
+    'es_ES': 'series'
   },
   LocationId.settings: {
     'en_US': 'settings',
-    'es': 'opciones'
+    'es_ES': 'opciones'
   },
   LocationId.support: {
     'en_US': 'support',
-    'es': 'soporte'
+    'es_ES': 'soporte'
   },
   LocationId.pullToRefresh: {
     'en_US': 'Pull To Refresh',
-    'es': 'Tire para refrescar'
+    'es_ES': 'Tire para refrescar'
   }
 };

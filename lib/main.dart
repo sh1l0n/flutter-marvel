@@ -6,6 +6,7 @@
 //
 
 import 'package:intl/intl.dart';
+import 'package:intl/intl_standalone.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,15 +16,13 @@ import 'package:lib_screens/navigator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([]);
-  initializeLanguage();
+  await initializeLanguage();
   runApp(NavigatorManager());
 }
 
 Future<void> initializeLanguage() async {
-  Intl.defaultLocale = 'en_US';
-  // if (Intl.defaultLocale.split('_')[0] != 'es') {
-  //   Intl.defaultLocale = 'en_US';
-  // } else {
-  //   Intl.defaultLocale = 'es';
-  // }
+  final String lan = (await findSystemLocale()) ?? 'en_US';
+  if (lan != 'es_ES') {
+    Intl.defaultLocale = 'en_US';
+  } 
 }
