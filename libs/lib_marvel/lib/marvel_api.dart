@@ -84,7 +84,7 @@ class MarvelApi {
     return completer.future;
   }
 
-  String get environmentFile => 'assets/env2.json';
+  String get environmentFile => 'assets/env.json';
   String get apiUrl => 'https://gateway.marvel.com:443';
 
   Map<String, String> get headers => {

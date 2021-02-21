@@ -23,7 +23,7 @@ abstract class NetworkGridBLoC {
   int get currentOffset => _currentOffset;
 
   bool _isLoading = false;
-  int get limit => 20;
+  int get limit => 3;
   int get scrollThreshold => (limit*0.4).round();
 
   Future<void> shouldUpdate(final int scrollIndex) async {

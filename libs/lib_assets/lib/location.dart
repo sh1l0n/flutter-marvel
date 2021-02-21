@@ -5,8 +5,8 @@
 // This file is part of lib_assets package
 //
 
-
 import 'package:intl/intl.dart';
+
 
 enum LocationId {
   series,
